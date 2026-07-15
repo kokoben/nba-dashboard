@@ -37,44 +37,128 @@ function App() {
       <header>
         <h1>NBA Dashboard</h1>
       </header>
-      <section className={styles.center}>
-        <div>
-          <img src={ATL} alt='Atlanta Hawks' />
-          <img src={BKN} alt='Brooklyn Nets' />
-          <img src={BOS} alt='Boston Celtics' />
-          <img src={CHA} alt='Charlotte Hornets' />
-          <img src={CHI} alt='Chicago Bulls' />
-          <img src={CLE} alt='Cleveland Cavaliers' />
-          <img src={DAL} alt='Dallas Mavericks' />
-          <img src={DEN} alt='Denver Nuggets' />
-          <img src={DET} alt='Detroit Pistons' />
-          <img src={GSW} alt='Golden State Warriors' />
-          <img src={HOU} alt='Houston Rockets' />
-          <img src={IND} alt='Indiana Pacers' />
-          <img src={LAC} alt='Los Angeles Clippers' />
-          <img src={LAL} alt='Los Angeles Lakers' />
-          <img src={MEM} alt='Memphis Grizzlies' />
-          <img src={MIA} alt='Miami Heat' />
-          <img src={MIL} alt='Milwaukee Bucks' />
-          <img src={MIN} alt='Minnesota Timberwolves' />
-          <img src={NOP} alt='New Orleans Pelicans' />
-          <img src={NYK} alt='New York Knicks' />
-          <img src={OKC} alt='Oklahoma City Thunder' />
-          <img src={ORL} alt='Orlando Magic' />
-          <img src={PHI} alt='Philadelphia 76ers' />
-          <img src={PHX} alt='Phoenix Suns' />
-          <img src={POR} alt='Portland Trail Blazers' />
-          <img src={SAC} alt='Sacramento Kings' />
-          <img src={SAS} alt='San Antonio Spurs' />
-          <img src={TOR} alt='Toronto Raptors' />
-          <img src={UTA} alt='Utah Jazz' />
-          <img src={WAS} alt='Washington Wizards' />
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-      </section>
+      <div className={styles['teams-grid']}>
+        <img
+          className={styles['team-logo']}
+          src={ATL} alt='Atlanta Hawks'
+        />
+        <img
+          src={BKN} alt='Brooklyn Nets'
+          className={styles['team-logo']}
+        />
+        <img
+          src={BOS} alt='Boston Celtics'
+          className={styles['team-logo']}
+        />
+        <img
+          src={CHA} alt='Charlotte Hornets'
+          className={styles['team-logo']}
+        />
+        <img
+          src={CHI} alt='Chicago Bulls'
+          className={styles['team-logo']}
+        />
+        <img
+          src={CLE} alt='Cleveland Cavaliers'
+          className={styles['team-logo']}
+        />
+        <img
+          src={DAL} alt='Dallas Mavericks'
+          className={styles['team-logo']}
+        />
+        <img
+          src={DEN} alt='Denver Nuggets'
+          className={styles['team-logo']}
+        />
+        <img
+          src={DET} alt='Detroit Pistons'
+          className={styles['team-logo']}
+        />
+        <img
+          src={GSW} alt='Golden State Warriors'
+          className={styles['team-logo']}
+        />
+        <img
+          src={HOU} alt='Houston Rockets'
+          className={styles['team-logo']}
+        />
+        <img
+          src={IND} alt='Indiana Pacers'
+          className={styles['team-logo']}
+        />
+        <img
+          src={LAC} alt='Los Angeles Clippers'
+          className={styles['team-logo']}
+        />
+        <img
+          src={LAL} alt='Los Angeles Lakers'
+          className={styles['team-logo']}
+        />
+        <img
+          src={MEM} alt='Memphis Grizzlies'
+          className={styles['team-logo']}
+        />
+        <img
+          src={MIA} alt='Miami Heat'
+          className={styles['team-logo']}
+        />
+        <img
+          src={MIL} alt='Milwaukee Bucks'
+          className={styles['team-logo']}
+        />
+        <img
+          src={MIN} alt='Minnesota Timberwolves'
+          className={styles['team-logo']}
+        />
+        <img
+          src={NOP} alt='New Orleans Pelicans'
+          className={styles['team-logo']}
+        />
+        <img
+          src={NYK} alt='New York Knicks'
+          className={styles['team-logo']}
+        />
+        <img
+          src={OKC} alt='Oklahoma City Thunder'
+          className={styles['team-logo']}
+        />
+        <img
+          src={ORL} alt='Orlando Magic'
+          className={styles['team-logo']}
+        />
+        <img
+          src={PHI} alt='Philadelphia 76ers'
+          className={styles['team-logo']}
+        />
+        <img
+          src={PHX} alt='Phoenix Suns'
+          className={styles['team-logo']}
+        />
+        <img
+          src={POR} alt='Portland Trail Blazers'
+          className={styles['team-logo']}
+        />
+        <img
+          src={SAC} alt='Sacramento Kings'
+          className={styles['team-logo']}
+        />
+        <img
+          src={SAS} alt='San Antonio Spurs'
+          className={styles['team-logo']}
+        />
+        <img
+          src={TOR} alt='Toronto Raptors'
+          className={styles['team-logo']}
+        />
+        <img
+          src={UTA} alt='Utah Jazz'
+          className={styles['team-logo']}
+        />
+        <img
+          src={WAS} alt='Washington Wizards'
+          className={styles['team-logo']}
+        />
+      </div>
     </>
   )
 }
