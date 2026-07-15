@@ -30,6 +30,133 @@ import TOR from '@/assets/teams/TOR.svg';
 import UTA from '@/assets/teams/UTA.svg';
 import WAS from '@/assets/teams/WAS.svg';
 
+type Team = {
+  id: string,
+  name: string,
+  alt: string,
+}
+const teams = [{
+  id: 'ATL',
+  name: ATL,
+  alt: 'Atlanta Hawks',
+}, {
+  id: 'BKN',
+  name: BKN,
+  alt: 'Brooklyn Nets',
+}, {
+  id: 'BOS',
+  name: BOS,
+  alt: 'Boston Celtics',
+}, {
+  id: 'CHA',
+  name: CHA,
+  alt: 'Charlotte Hornets',
+}, {
+  id: 'CHI',
+  name: CHI,
+  alt: 'Chicago Bulls',
+}, {
+  id: 'CLE',
+  name: CLE,
+  alt: 'Cleveland Cavaliers',
+}, {
+  id: 'DAL',
+  name: DAL,
+  alt: 'Dallas Mavericks',
+}, {
+  id: 'DEN',
+  name: DEN,
+  alt: 'Denver Nuggets',
+}, {
+  id: 'DET',
+  name: DET,
+  alt: 'Detroit Pistons',
+}, {
+  id: 'GSW',
+  name: GSW,
+  alt: 'Golden State Warriors',
+}, {
+  id: 'HOU',
+  name: HOU,
+  alt: 'Houston Rockets',
+}, {
+  id: 'IND',
+  name: IND,
+  alt: 'Indiana Pacers',
+}, {
+  id: 'LAC',
+  name: LAC,
+  alt: 'Los Angeles Clippers',
+}, {
+  id: 'LAL',
+  name: LAL,
+  alt: 'Los Angeles Lakers',
+}, {
+  id: 'MEM',
+  name: MEM,
+  alt: 'Memphis Grizzlies',
+}, {
+  id: 'MIA',
+  name: MIA,
+  alt: 'Miami Heat',
+}, {
+  id: 'MIL',
+  name: MIL,
+  alt: 'Milwaukee Bucks',
+}, {
+  id: 'MIN',
+  name: MIN,
+  alt: 'Minnesota Timberwolves',
+}, {
+  id: 'NOP',
+  name: NOP,
+  alt: 'New Orleans Pelicans',
+}, {
+  id: 'NYK',
+  name: NYK,
+  alt: 'New York Knicks',
+}, {
+  id: 'OKC',
+  name: OKC,
+  alt: 'Oklahoma City Thunder',
+}, {
+  id: 'ORL',
+  name: ORL,
+  alt: 'Orlando Magic',
+}, {
+  id: 'PHI',
+  name: PHI,
+  alt: 'Philadelphia 76ers',
+}, {
+  id: 'PHX',
+  name: PHX,
+  alt: 'Phoenix Suns',
+}, {
+  id: 'POR',
+  name: POR,
+  alt: 'Portland Trail Blazers',
+}, {
+  id: 'SAC',
+  name: SAC,
+  alt: 'Sacramento Kings',
+}, {
+  id: 'SAS',
+  name: SAS,
+  alt: 'San Antonio Spurs',
+}, {
+  id: 'TOR',
+  name: TOR,
+  alt: 'Toronto Raptors', 
+}, {
+  id: 'UTA',
+  name: UTA,
+  alt: 'Utah Jazz',
+}, {
+  id: 'WAS',
+  name: WAS,
+  alt: 'Washington Wizards',
+}]
+
 function App() {
 
   return (
@@ -38,126 +165,14 @@ function App() {
         <h1>NBA Dashboard</h1>
       </header>
       <div className={styles['teams-grid']}>
-        <img
-          className={styles['team-logo']}
-          src={ATL} alt='Atlanta Hawks'
-        />
-        <img
-          src={BKN} alt='Brooklyn Nets'
-          className={styles['team-logo']}
-        />
-        <img
-          src={BOS} alt='Boston Celtics'
-          className={styles['team-logo']}
-        />
-        <img
-          src={CHA} alt='Charlotte Hornets'
-          className={styles['team-logo']}
-        />
-        <img
-          src={CHI} alt='Chicago Bulls'
-          className={styles['team-logo']}
-        />
-        <img
-          src={CLE} alt='Cleveland Cavaliers'
-          className={styles['team-logo']}
-        />
-        <img
-          src={DAL} alt='Dallas Mavericks'
-          className={styles['team-logo']}
-        />
-        <img
-          src={DEN} alt='Denver Nuggets'
-          className={styles['team-logo']}
-        />
-        <img
-          src={DET} alt='Detroit Pistons'
-          className={styles['team-logo']}
-        />
-        <img
-          src={GSW} alt='Golden State Warriors'
-          className={styles['team-logo']}
-        />
-        <img
-          src={HOU} alt='Houston Rockets'
-          className={styles['team-logo']}
-        />
-        <img
-          src={IND} alt='Indiana Pacers'
-          className={styles['team-logo']}
-        />
-        <img
-          src={LAC} alt='Los Angeles Clippers'
-          className={styles['team-logo']}
-        />
-        <img
-          src={LAL} alt='Los Angeles Lakers'
-          className={styles['team-logo']}
-        />
-        <img
-          src={MEM} alt='Memphis Grizzlies'
-          className={styles['team-logo']}
-        />
-        <img
-          src={MIA} alt='Miami Heat'
-          className={styles['team-logo']}
-        />
-        <img
-          src={MIL} alt='Milwaukee Bucks'
-          className={styles['team-logo']}
-        />
-        <img
-          src={MIN} alt='Minnesota Timberwolves'
-          className={styles['team-logo']}
-        />
-        <img
-          src={NOP} alt='New Orleans Pelicans'
-          className={styles['team-logo']}
-        />
-        <img
-          src={NYK} alt='New York Knicks'
-          className={styles['team-logo']}
-        />
-        <img
-          src={OKC} alt='Oklahoma City Thunder'
-          className={styles['team-logo']}
-        />
-        <img
-          src={ORL} alt='Orlando Magic'
-          className={styles['team-logo']}
-        />
-        <img
-          src={PHI} alt='Philadelphia 76ers'
-          className={styles['team-logo']}
-        />
-        <img
-          src={PHX} alt='Phoenix Suns'
-          className={styles['team-logo']}
-        />
-        <img
-          src={POR} alt='Portland Trail Blazers'
-          className={styles['team-logo']}
-        />
-        <img
-          src={SAC} alt='Sacramento Kings'
-          className={styles['team-logo']}
-        />
-        <img
-          src={SAS} alt='San Antonio Spurs'
-          className={styles['team-logo']}
-        />
-        <img
-          src={TOR} alt='Toronto Raptors'
-          className={styles['team-logo']}
-        />
-        <img
-          src={UTA} alt='Utah Jazz'
-          className={styles['team-logo']}
-        />
-        <img
-          src={WAS} alt='Washington Wizards'
-          className={styles['team-logo']}
-        />
+        {teams.map((team: Team) => (
+          <img
+            key={team.id}
+            className={styles['team-logo']}
+            src={team.name}
+            alt={team.alt}
+          />
+        ))}
       </div>
     </>
   )
