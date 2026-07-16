@@ -1,20 +1,16 @@
 import { Route, Routes } from 'react-router';
+import AppLayout from '@/layouts/AppLayout';
 import Dashboard from '@/features/dashboard/views/Dashboard';
 import TeamPage from '@/features/team/views/TeamPage';
-import styles from '@/App.module.css';
 
 function App() {
   return (
-    <>
-      <header>
-        <h1>NBA Dashboard</h1>
-      </header>
-
-      <Routes>
-        <Route path='/' element={<Dashboard />} />
+    <Routes>
+      <Route element={<AppLayout />}>
+        <Route index element={<Dashboard />} />
         <Route path='/teams/:teamId' element={<TeamPage />} />
-      </Routes>
-    </>
+      </Route>
+    </Routes>
   )
 }
 
