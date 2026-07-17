@@ -15,6 +15,12 @@ function AppLayout() {
       <main>
         <Outlet />
       </main>
+
+      <footer>
+        <div className={styles['copyright']}>
+          "Copyright" {new Date().getFullYear()} kokoben "LLC". All rights not quite reserved.
+        </div>
+      </footer>
     </>
   );
 }
