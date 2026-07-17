@@ -31,129 +31,130 @@ import WAS from '@/assets/teams/WAS.svg';
 
 export type Team = {
   id: string,
+  name: string, // maps to displayName in ESPN api, which is then used
+  // to grab the rest of the team data
   logoSrc: string,
-  alt: string,
 }
 
 
 export const TEAMS: Team[] = [{
   id: 'ATL',
+  name: 'Atlanta Hawks',
   logoSrc: ATL,
-  alt: 'Atlanta Hawks',
 }, {
   id: 'BKN',
+  name: 'Brooklyn Nets',
   logoSrc: BKN,
-  alt: 'Brooklyn Nets',
 }, {
   id: 'BOS',
+  name: 'Boston Celtics',
   logoSrc: BOS,
-  alt: 'Boston Celtics',
 }, {
   id: 'CHA',
+  name: 'Charlotte Hornets',
   logoSrc: CHA,
-  alt: 'Charlotte Hornets',
 }, {
   id: 'CHI',
+  name: 'Chicago Bulls',
   logoSrc: CHI,
-  alt: 'Chicago Bulls',
 }, {
   id: 'CLE',
+  name: 'Cleveland Cavaliers',
   logoSrc: CLE,
-  alt: 'Cleveland Cavaliers',
 }, {
   id: 'DAL',
+  name: 'Dallas Mavericks',
   logoSrc: DAL,
-  alt: 'Dallas Mavericks',
 }, {
   id: 'DEN',
+  name: 'Denver Nuggets',
   logoSrc: DEN,
-  alt: 'Denver Nuggets',
 }, {
   id: 'DET',
+  name: 'Detroit Pistons',
   logoSrc: DET,
-  alt: 'Detroit Pistons',
 }, {
   id: 'GSW',
+  name: 'Golden State Warriors',
   logoSrc: GSW,
-  alt: 'Golden State Warriors',
 }, {
   id: 'HOU',
+  name: 'Houston Rockets',
   logoSrc: HOU,
-  alt: 'Houston Rockets',
 }, {
   id: 'IND',
+  name: 'Indiana Pacers',
   logoSrc: IND,
-  alt: 'Indiana Pacers',
 }, {
   id: 'LAC',
+  name: 'Los Angeles Clippers',
   logoSrc: LAC,
-  alt: 'Los Angeles Clippers',
 }, {
   id: 'LAL',
+  name: 'Los Angeles Lakers',
   logoSrc: LAL,
-  alt: 'Los Angeles Lakers',
 }, {
   id: 'MEM',
+  name: 'Memphis Grizzlies',
   logoSrc: MEM,
-  alt: 'Memphis Grizzlies',
 }, {
   id: 'MIA',
+  name: 'Miami Heat',
   logoSrc: MIA,
-  alt: 'Miami Heat',
 }, {
   id: 'MIL',
+  name: 'Milwaukee Bucks',
   logoSrc: MIL,
-  alt: 'Milwaukee Bucks',
 }, {
   id: 'MIN',
+  name: 'Minnesota Timberwolves',
   logoSrc: MIN,
-  alt: 'Minnesota Timberwolves',
 }, {
   id: 'NOP',
+  name: 'New Orleans Pelicans',
   logoSrc: NOP,
-  alt: 'New Orleans Pelicans',
 }, {
   id: 'NYK',
+  name: 'New York Knicks',
   logoSrc: NYK,
-  alt: 'New York Knicks',
 }, {
   id: 'OKC',
+  name: 'Oklahoma City Thunder',
   logoSrc: OKC,
-  alt: 'Oklahoma City Thunder',
 }, {
   id: 'ORL',
+  name: 'Orlando Magic',
   logoSrc: ORL,
-  alt: 'Orlando Magic',
 }, {
   id: 'PHI',
+  name: 'Philadelphia 76ers',
   logoSrc: PHI,
-  alt: 'Philadelphia 76ers',
 }, {
   id: 'PHX',
+  name: 'Phoenix Suns',
   logoSrc: PHX,
-  alt: 'Phoenix Suns',
 }, {
   id: 'POR',
+  name: 'Portland Trail Blazers',
   logoSrc: POR,
-  alt: 'Portland Trail Blazers',
 }, {
   id: 'SAC',
+  name: 'Sacramento Kings',
   logoSrc: SAC,
-  alt: 'Sacramento Kings',
 }, {
   id: 'SAS',
+  name: 'San Antonio Spurs',
   logoSrc: SAS,
-  alt: 'San Antonio Spurs',
 }, {
   id: 'TOR',
+  name: 'Toronto Raptors',
   logoSrc: TOR,
-  alt: 'Toronto Raptors', 
 }, {
   id: 'UTA',
+  name: 'Utah Jazz',
   logoSrc: UTA,
-  alt: 'Utah Jazz',
 }, {
   id: 'WAS',
+  name: 'Washington Wizards',
   logoSrc: WAS,
-  alt: 'Washington Wizards',
 }]

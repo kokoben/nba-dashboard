@@ -11,7 +11,7 @@ function Dashboard() {
             <img
               className={styles['team-logo']}
               src={team.logoSrc}
-              alt={team.alt}
+              alt={team.name}
             />
           </Link>
         ))}
