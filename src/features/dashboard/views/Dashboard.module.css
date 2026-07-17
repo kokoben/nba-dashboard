@@ -1,0 +1,18 @@
+.teams-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  padding: 0 16px;
+  .team-logo {
+    cursor: pointer;
+    &:hover {
+      background: #dbd8bf;
+      border-radius: 16px;
+    }
+    &:active {
+      background: #a5a184;
+      border-radius: 16px;
+    }
+  }
+}
+
