@@ -25,8 +25,8 @@ type TeamRosterResp = {
   }[],
 }
 
-export async function getTeamRoster(teamId: string): Promise<TeamRosterResp> {
-  const resp = await fetch(`${ESPN_API_BASE_URL}/${teamId}/roster`);
+export async function getTeamRoster(teamId: string, signal?: AbortSignal): Promise<TeamRosterResp> {
+  const resp = await fetch(`${ESPN_API_BASE_URL}/${teamId}/roster`, { signal });
 
   if (!resp.ok) {
     throw new Error(`Roster request failed: ${resp.status}`)

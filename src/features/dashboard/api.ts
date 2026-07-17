@@ -1,6 +1,6 @@
 const ESPN_API_BASE_URL = 'https://site.api.espn.com/apis/site/v2/sports/basketball/nba/teams';
 
-type TeamResp = {
+export type TeamsResp = {
   sports: {
     id: string,
     leagues: {
@@ -11,12 +11,12 @@ type TeamResp = {
           id: string,
         },
       }[],
-    },
+    }[],
   }[],
 }
 
-export async function getTeam(): Promise<TeamResp> {
-  const resp = await fetch(`${ESPN_API_BASE_URL}`);
+export async function getTeams(signal?: AbortSignal): Promise<TeamsResp> {
+  const resp = await fetch(`${ESPN_API_BASE_URL}`, { signal });
 
   if (!resp.ok) {
     throw new Error(`Team request failed: ${resp.status}`);
