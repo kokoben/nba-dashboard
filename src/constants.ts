@@ -29,15 +29,7 @@ import TOR from '@/assets/teams/TOR.svg';
 import UTA from '@/assets/teams/UTA.svg';
 import WAS from '@/assets/teams/WAS.svg';
 
-export type Team = {
-  id: string,
-  name: string, // maps to displayName in ESPN api, which is then used
-  // to grab the rest of the team data
-  logoSrc: string,
-}
-
-
-export const TEAMS: Team[] = [{
+export const TEAMS = [{
   id: 'ATL',
   name: 'Atlanta Hawks',
   logoSrc: ATL,
@@ -87,7 +79,7 @@ export const TEAMS: Team[] = [{
   logoSrc: IND,
 }, {
   id: 'LAC',
-  name: 'Los Angeles Clippers',
+  name: 'LA Clippers',
   logoSrc: LAC,
 }, {
   id: 'LAL',
