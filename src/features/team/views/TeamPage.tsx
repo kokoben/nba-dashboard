@@ -15,17 +15,6 @@ function TeamPage() {
   const [panelPlayerId, setPanelPlayerId] = useState<number | null>(null);
   const viewDetailsBtnRef = useRef<HTMLButtonElement | null>(null);
 
-  function viewDetails(athleteId: number, event: MouseEvent<HTMLButtonElement>): void {
-    // allows focus to be returned to the view details button upon closing the player panel
-    viewDetailsBtnRef.current = event.currentTarget;
-
-    setPanelPlayerId(athleteId);
-  }
-
-  function closePanel(): void {
-    setPanelPlayerId(null);
-  }
-
   useEffect(() => {
     if (!teamId) {
       setRoster(null);
@@ -83,6 +72,18 @@ function TeamPage() {
     }
 
   }, [panelPlayerId])
+
+  function viewDetails(athleteId: number, event: MouseEvent<HTMLButtonElement>): void {
+    // allows focus to be returned to the view details button upon closing the player panel
+    viewDetailsBtnRef.current = event.currentTarget;
+
+    setPanelPlayerId(athleteId);
+  }
+
+  function closePanel(): void {
+    setPanelPlayerId(null);
+  }
+
 
   return (
     <>
