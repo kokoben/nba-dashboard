@@ -1,0 +1,15 @@
+.roster-card-wrapper {
+  border: 1px solid black;
+  border-radius: 4px;
+  box-sizing: border-box;
+  .headshot-and-bio {
+    display: flex;
+    gap: 8px;
+    .headshot {
+
+    }
+    .bio {
+      text-align: left;
+    }
+  }
+}
