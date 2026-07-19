@@ -29,13 +29,13 @@ function RosterCard({athlete}: { athlete: Athlete }) {
           </div>
           <div>
             <span>Birth Place: </span>
-            {athlete.birthPlace ? (
+            {Object.keys(athlete.birthPlace).length ? (
               <>
                 <span>{athlete.birthPlace.city}, </span>
                 <span>{athlete.birthPlace.state} </span>
                 <span>{athlete.birthPlace.country}</span>
               </>
-            ) : <span>'N/A'</span>}
+            ) : <span>N/A</span>}
           </div>
           <div>
             <span>Height: </span>
