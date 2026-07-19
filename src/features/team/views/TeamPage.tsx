@@ -2,8 +2,8 @@ import { useState, useEffect, useRef, type MouseEvent } from 'react';
 import { useParams } from 'react-router';
 import { getTeamRoster, type TeamRosterResp, type Athlete } from '@/features/team/api';
 import NotFound from '@/views/NotFound';
-import RosterCard from '@/features/team/components/RosterCard';
-import PlayerPanel from '@/features/team/components/PlayerPanel';
+import RosterCard from '@/features/team/components/RosterCard/RosterCard';
+import PlayerPanel from '@/features/team/components/PlayerPanel/PlayerPanel';
 import styles from '@/features/team/views/TeamPage.module.scss';
 
 function TeamPage() {

@@ -1,6 +1,6 @@
 import { type MouseEventHandler } from 'react';
 import { type Athlete } from '@/features/team/api';
-import styles from '@/features/team/components/RosterCard.module.scss';
+import styles from '@/features/team/components/RosterCard/RosterCard.module.scss';
 
 type RosterCardProps = {
   athlete: Athlete,

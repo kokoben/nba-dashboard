@@ -1,4 +1,4 @@
-import styles from '@/features/team/components/PlayerPanel.module.scss';
+import styles from '@/features/team/components/PlayerPanel/PlayerPanel.module.scss';
 
 type PlayerPanelProps = {
   isOpen: boolean,
