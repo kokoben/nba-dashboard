@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
-import { TEAMS, type Team } from '@/constants';
-import { getTeamRoster, type Athlete } from '@/features/team/api';
+import { getTeamRoster, type Athlete, type Team } from '@/features/team/api';
 import NotFound from '@/views/NotFound';
 import RosterCard from '@/features/team/components/RosterCard';
 import styles from '@/features/team/views/TeamPage.module.css';
@@ -10,10 +9,9 @@ function TeamPage() {
   const [roster, setRoster] = useState<Athlete[] | null>(null);
   const [rosterIsLoading, setRosterIsLoading] = useState<boolean>(true);
   const [rosterHasError, setRosterHasError] = useState<boolean>(false);
+  const [teamSummary, setTeamSummary] = useState<Team | null>(null);
 
   const { teamId } = useParams();
-
-  const validTeamIds: Set<string> = new Set(TEAMS.map((team: Team) => team.id));
 
   useEffect(() => {
     const controller = new AbortController();
@@ -24,7 +22,11 @@ function TeamPage() {
 
       try {
         const roster = await getTeamRoster(teamId, controller.signal);
-        setRoster(roster);
+
+        if (roster) {
+          setRoster(roster.athletes);
+          setTeamSummary(roster.team)
+        }
       } catch (e) {
         if (e instanceof DOMException && e.name === 'AbortError') {
           return;
@@ -51,16 +53,19 @@ function TeamPage() {
       ) : !teamId || roster === null ? (
         <NotFound />
       ) : (
-        <div className={styles['roster-grid']}>
-          {roster.map((athlete: Athlete) => {
-            return (
-              <RosterCard
-                key={athlete.id}
-                athlete={athlete}
-              />
-            )
-          })}
-        </div>
+        <>
+          <h2>{teamSummary === null ? 'Unknown Team' : teamSummary.displayName}</h2>
+          <div className={styles['roster-grid']}>
+            {roster.map((athlete: Athlete) => {
+              return (
+                <RosterCard
+                  key={athlete.id}
+                  athlete={athlete}
+                />
+              )
+            })}
+          </div>
+        </>
       )}
     </>
   )

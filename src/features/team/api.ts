@@ -1,9 +1,5 @@
 const ESPN_API_BASE_URL = 'https://site.api.espn.com/apis/site/v2/sports/basketball/nba/teams';
 
-type TeamRosterResp = {
-  athletes: Athlete[],
-}
-
 export type Athlete = {
     id: string,
     fullName: string,
@@ -27,8 +23,18 @@ export type Athlete = {
     },
 }
 
+export type Team = {
+  displayName: string,
+}
+
+type TeamRosterResp = {
+  athletes: Athlete[],
+  team: Team,
+}
+
+
 export async function getTeamRoster(teamId: string | undefined,
-  signal?: AbortSignal): Promise<Athlete[] | null> {
+  signal?: AbortSignal): Promise<TeamRosterResp | null> {
   const resp = await fetch(`${ESPN_API_BASE_URL}/${teamId}/roster`, { signal });
 
   if (resp.status == 400 || resp.status === 404) {
@@ -41,5 +47,5 @@ export async function getTeamRoster(teamId: string | undefined,
 
   const data: TeamRosterResp = await resp.json();
 
-  return data.athletes;
+  return data;
 }
