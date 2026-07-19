@@ -1,0 +1,19 @@
+.title {
+  color: inherit;
+  cursor: pointer;
+  text-decoration: none;
+  &:visited {
+    color: inherit;
+  }
+  &:hover {
+    color: gray;
+  }
+  &:active {
+    color: white;
+  }
+}
+
+.copyright {
+  margin: 8px 0;
+  font-size: 18px;
+}
