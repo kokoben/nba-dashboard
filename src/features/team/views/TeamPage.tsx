@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, type MouseEvent } from 'react';
 import { useParams } from 'react-router';
-import { getTeamRoster, type TeamRosterResp, type Athlete, type Team } from '@/features/team/api';
+import { getTeamRoster, type TeamRosterResp, type Athlete } from '@/features/team/api';
 import NotFound from '@/views/NotFound';
 import RosterCard from '@/features/team/components/RosterCard';
 import PlayerPanel from '@/features/team/components/PlayerPanel';
@@ -12,14 +12,18 @@ function TeamPage() {
   const [roster, setRoster] = useState<TeamRosterResp | null>(null);
   const [rosterIsLoading, setRosterIsLoading] = useState<boolean>(true);
   const [rosterHasError, setRosterHasError] = useState<boolean>(false);
-  const [playerPanelIsOpen, setPlayerPanelIsOpen] = useState<boolean>(false);
+  const [panelPlayerId, setPanelPlayerId] = useState<number | null>(null);
+  const viewDetailsBtnRef = useRef<HTMLButtonElement | null>(null);
 
-  function viewDetails(): void {
-    setPlayerPanelIsOpen(true);
+  function viewDetails(athleteId: number, event: MouseEvent<HTMLButtonElement>): void {
+    // allows focus to be returned to the view details button upon closing the player panel
+    viewDetailsBtnRef.current = event.currentTarget;
+
+    setPanelPlayerId(athleteId);
   }
 
   function closePanel(): void {
-    setPlayerPanelIsOpen(false);
+    setPanelPlayerId(null);
   }
 
   useEffect(() => {
@@ -64,6 +68,22 @@ function TeamPage() {
     }
   }, [teamId])
 
+  useEffect(() => {
+    // return focus to the view details button of the player card that was initially
+    // clicked on to open the player panel.
+
+    // only need to return focus to the view details button if the user is closing the panel
+    if (panelPlayerId !== null) {
+      return;
+    }
+
+    if (viewDetailsBtnRef.current) {
+      viewDetailsBtnRef.current.focus();
+      viewDetailsBtnRef.current = null;
+    }
+
+  }, [panelPlayerId])
+
   return (
     <>
       {rosterIsLoading ? (
@@ -81,15 +101,15 @@ function TeamPage() {
                 <RosterCard
                   key={athlete.id}
                   athlete={athlete}
-                  playerPanelIsExpanded={playerPanelIsOpen}
-                  viewDetails={viewDetails}
+                  playerPanelIsExpanded={panelPlayerId === Number(athlete.id)}
+                  viewDetails={(event) => viewDetails(Number(athlete.id), event)}
                 />
               )
             })}
           </div>
         </>
       )}
-      <PlayerPanel isOpen={playerPanelIsOpen} closePanel={closePanel} />
+      <PlayerPanel isOpen={panelPlayerId !== null} closePanel={closePanel} />
     </>
   )
 }

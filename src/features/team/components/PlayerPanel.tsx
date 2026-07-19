@@ -6,27 +6,39 @@ type PlayerPanelProps = {
 }
 
 function PlayerPanel({isOpen, closePanel}: PlayerPanelProps) {
-  const classNames: string = [
+  const overlayClassNames: string = [
+    styles['overlay'],
+    isOpen ? styles['overlay-is-open']: '',
+  ].join(' ');
+
+  const panelClassNames: string = [
     styles['player-panel-wrapper'],
     isOpen ? styles['player-panel-wrapper-is-open']: '',
   ].join(' ')
 
   return (
-    <div
-      id='player-panel'
-      className={classNames}
-      inert={!isOpen}
-    >
-      <div>
-        placeholder
-      </div>
-      <button
-        type='button'
+    <>
+      <div
+        className={overlayClassNames}
+        aria-hidden='true'
         onClick={closePanel}
+      />
+      <div
+        id='player-panel'
+        className={panelClassNames}
+        inert={!isOpen}
       >
-        Close
-      </button>
-    </div>
+        <div>
+          placeholder
+        </div>
+        <button
+          type='button'
+          onClick={closePanel}
+        >
+          Close
+        </button>
+      </div>
+    </>
   )
 }
 

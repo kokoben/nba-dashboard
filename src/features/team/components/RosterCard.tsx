@@ -1,10 +1,11 @@
+import { type MouseEventHandler } from 'react';
 import { type Athlete } from '@/features/team/api';
 import styles from '@/features/team/components/RosterCard.module.scss';
 
 type RosterCardProps = {
   athlete: Athlete,
   playerPanelIsExpanded: boolean,
-  viewDetails: () => void,
+  viewDetails: MouseEventHandler<HTMLButtonElement>,
 }
 
 function RosterCard({athlete, playerPanelIsExpanded, viewDetails}: RosterCardProps) {

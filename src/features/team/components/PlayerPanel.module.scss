@@ -1,8 +1,28 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  background: rgb(0 0 0 /50%);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity 0.5s ease,
+    visibility 0s linear 0.5s;
+  &-is-open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transition-delay: 0s;
+  }
+}
+
 .player-panel-wrapper {
   position: fixed;
   background: white;
   top: 0;
   right: 0;
+  z-index: 11;
   width: 600px;
   height: 100dvh;
   padding: 8px;
