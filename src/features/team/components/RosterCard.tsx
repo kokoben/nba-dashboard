@@ -1,7 +1,13 @@
 import { type Athlete } from '@/features/team/api';
 import styles from '@/features/team/components/RosterCard.module.css';
 
-function RosterCard({athlete}: { athlete: Athlete }) {
+type RosterCardProps = {
+  athlete: Athlete,
+  playerPanelIsExpanded: boolean,
+  viewDetails: () => void,
+}
+
+function RosterCard({athlete, playerPanelIsExpanded, viewDetails}: RosterCardProps) {
   const formattedDate: string = new Date(athlete.dateOfBirth).toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',
@@ -11,12 +17,21 @@ function RosterCard({athlete}: { athlete: Athlete }) {
   return (
     <div className={styles['roster-card-wrapper']}>
       <div className={styles['headshot-and-bio']}>
-        {athlete.headshot ? (<img
-          className={styles['headshot']}
-          src={athlete.headshot.href}
-          alt={athlete.headshot.alt}
-          width='200'
-        />) : <div>Headshot Placeholder</div>}
+        <div className={styles['headshot-group']}>
+          {athlete.headshot ? (<img
+            className={styles['headshot']}
+            src={athlete.headshot.href}
+            alt={athlete.headshot.alt}
+          />) : <div>Headshot Placeholder</div>}
+          <button
+            type='button'
+            aria-label={`View details for ${athlete.fullName}`}
+            aria-controls='player-panel'
+            aria-expanded={playerPanelIsExpanded}
+            className={styles['view-details-btn']}
+            onClick={viewDetails}>View Details</button
+          >
+        </div>
         <div className={styles['bio']}>
           <div>
             <b>Name:</b> {athlete.fullName}

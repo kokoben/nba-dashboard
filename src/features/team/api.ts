@@ -32,7 +32,6 @@ export type TeamRosterResp = {
   team: Team,
 }
 
-
 export async function getTeamRoster(teamId: string,
   signal?: AbortSignal): Promise<TeamRosterResp | null> {
   const resp = await fetch(`${ESPN_API_BASE_URL}/${teamId}/roster`, { signal });

@@ -3,14 +3,20 @@ import { useParams } from 'react-router';
 import { getTeamRoster, type TeamRosterResp, type Athlete, type Team } from '@/features/team/api';
 import NotFound from '@/views/NotFound';
 import RosterCard from '@/features/team/components/RosterCard';
+import PlayerPanel from '@/features/team/components/PlayerPanel';
 import styles from '@/features/team/views/TeamPage.module.css';
 
 function TeamPage() {
+  const { teamId } = useParams();
+
   const [roster, setRoster] = useState<TeamRosterResp | null>(null);
   const [rosterIsLoading, setRosterIsLoading] = useState<boolean>(true);
   const [rosterHasError, setRosterHasError] = useState<boolean>(false);
+  const [playerPanelIsOpen, setPlayerPanelIsOpen] = useState<boolean>(false);
 
-  const { teamId } = useParams();
+  function viewDetails(): void {
+    setPlayerPanelIsOpen(true);
+  }
 
   useEffect(() => {
     if (!teamId) {
@@ -71,12 +77,15 @@ function TeamPage() {
                 <RosterCard
                   key={athlete.id}
                   athlete={athlete}
+                  playerPanelIsExpanded={playerPanelIsOpen}
+                  viewDetails={viewDetails}
                 />
               )
             })}
           </div>
         </>
       )}
+      (playerPanelIsOpen && <PlayerPanel />)
     </>
   )
 }
