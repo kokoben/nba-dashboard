@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router';
 import { TEAMS } from '@/constants';
 import { getTeams, type Team } from '@/features/dashboard/api';
-import styles from '@/features/dashboard/views/Dashboard.module.css'
+import styles from '@/features/dashboard/views/Dashboard.module.scss'
 
 function getIdFromDisplayName(displayName: string, apiTeams: Team[]): string {
   const targetTeam: Team | undefined = apiTeams.find((team: Team) => {

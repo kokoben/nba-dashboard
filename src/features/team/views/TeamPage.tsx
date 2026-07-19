@@ -4,7 +4,7 @@ import { getTeamRoster, type TeamRosterResp, type Athlete, type Team } from '@/f
 import NotFound from '@/views/NotFound';
 import RosterCard from '@/features/team/components/RosterCard';
 import PlayerPanel from '@/features/team/components/PlayerPanel';
-import styles from '@/features/team/views/TeamPage.module.css';
+import styles from '@/features/team/views/TeamPage.module.scss';
 
 function TeamPage() {
   const { teamId } = useParams();
@@ -85,7 +85,7 @@ function TeamPage() {
           </div>
         </>
       )}
-      (playerPanelIsOpen && <PlayerPanel />)
+      <PlayerPanel isOpen={playerPanelIsOpen} />
     </>
   )
 }

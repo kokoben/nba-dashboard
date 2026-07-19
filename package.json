@@ -21,7 +21,11 @@
   "devDependencies": {
     "@types/react": "19.2.17",
     "oxlint": "1.71.0",
+    "sass-embedded": "1.100.0",
     "typescript": "6.0.2",
     "vite": "8.1.1"
+  },
+  "allowScripts": {
+    "@parcel/watcher": false
   }
 }

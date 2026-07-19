@@ -1,5 +1,5 @@
 import { type Athlete } from '@/features/team/api';
-import styles from '@/features/team/components/RosterCard.module.css';
+import styles from '@/features/team/components/RosterCard.module.scss';
 
 type RosterCardProps = {
   athlete: Athlete,

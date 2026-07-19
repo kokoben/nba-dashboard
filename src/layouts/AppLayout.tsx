@@ -1,5 +1,5 @@
 import { Link, Outlet } from 'react-router';
-import styles from '@/layouts/AppLayout.module.css';
+import styles from '@/layouts/AppLayout.module.scss';
 
 function AppLayout() {
   return (
