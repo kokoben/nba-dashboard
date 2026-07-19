@@ -18,6 +18,10 @@ function TeamPage() {
     setPlayerPanelIsOpen(true);
   }
 
+  function closePanel(): void {
+    setPlayerPanelIsOpen(false);
+  }
+
   useEffect(() => {
     if (!teamId) {
       setRoster(null);
@@ -85,7 +89,7 @@ function TeamPage() {
           </div>
         </>
       )}
-      <PlayerPanel isOpen={playerPanelIsOpen} />
+      <PlayerPanel isOpen={playerPanelIsOpen} closePanel={closePanel} />
     </>
   )
 }
