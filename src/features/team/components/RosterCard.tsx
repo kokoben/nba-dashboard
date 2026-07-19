@@ -1,4 +1,3 @@
-import moment from 'moment';
 import { type Athlete } from '@/features/team/api';
 import styles from '@/features/team/components/RosterCard.module.css';
 
