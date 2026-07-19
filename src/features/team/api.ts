@@ -27,13 +27,13 @@ export type Team = {
   displayName: string,
 }
 
-type TeamRosterResp = {
+export type TeamRosterResp = {
   athletes: Athlete[],
   team: Team,
 }
 
 
-export async function getTeamRoster(teamId: string | undefined,
+export async function getTeamRoster(teamId: string,
   signal?: AbortSignal): Promise<TeamRosterResp | null> {
   const resp = await fetch(`${ESPN_API_BASE_URL}/${teamId}/roster`, { signal });
 

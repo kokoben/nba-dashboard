@@ -19,16 +19,16 @@ function RosterCard({athlete}: { athlete: Athlete }) {
         />) : <div>Headshot Placeholder</div>}
         <div className={styles['bio']}>
           <div>
-            Name: {athlete.fullName}
+            <b>Name:</b> {athlete.fullName}
           </div>
           <div>
-            Age: {athlete.age}
+            <b>Age:</b> {athlete.age}
           </div>
           <div>
-            Date of Birth: {formattedDate}
+            <b>Date of Birth:</b> {formattedDate}
           </div>
           <div>
-            <span>Birth Place: </span>
+            <span><b>Birth Place:</b> </span>
             {Object.keys(athlete.birthPlace).length ? (
               <>
                 <span>{athlete.birthPlace.city}, </span>
@@ -38,12 +38,16 @@ function RosterCard({athlete}: { athlete: Athlete }) {
             ) : <span>N/A</span>}
           </div>
           <div>
-            <span>Height: </span>
+            <span><b>Height:</b> </span>
             <span>{athlete.displayHeight}</span>
           </div>
           <div>
-            <span>Weight: </span>
+            <span><b>Weight:</b> </span>
             <span>{athlete.displayWeight}</span>
+          </div>
+          <div>
+            <span><b>Jersey: </b></span>
+            <span>{athlete.jersey ?? 'N/A'}</span>
           </div>
         </div>
       </div>
