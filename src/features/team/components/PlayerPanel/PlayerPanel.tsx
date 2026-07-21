@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import styles from '@/features/team/components/PlayerPanel/PlayerPanel.module.scss';
 
 type PlayerPanelProps = {
@@ -10,6 +11,14 @@ function PlayerPanel({isOpen, closePanel}: PlayerPanelProps) {
     styles['overlay'],
     isOpen ? styles['overlay-is-open']: '',
   ].join(' ');
+
+  const closeBtnRef = useRef<HTMLButtonElement | null>(null);
+
+  useEffect(() => {
+    if (isOpen) {
+      closeBtnRef.current?.focus();
+    }
+  }, [isOpen]);
 
   const panelClassNames: string = [
     styles['player-panel-wrapper'],
@@ -32,7 +41,9 @@ function PlayerPanel({isOpen, closePanel}: PlayerPanelProps) {
           placeholder
         </div>
         <button
+          className={styles['close-btn']}
           type='button'
+          ref={closeBtnRef}
           onClick={closePanel}
         >
           Close

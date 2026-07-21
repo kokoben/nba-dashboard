@@ -55,7 +55,7 @@ function TeamPage() {
     return () => {
       controller.abort()
     }
-  }, [teamId])
+  }, [teamId]);
 
   useEffect(() => {
     // return focus to the view details button of the player card that was initially
@@ -71,7 +71,7 @@ function TeamPage() {
       viewDetailsBtnRef.current = null;
     }
 
-  }, [panelPlayerId])
+  }, [panelPlayerId]);
 
   function viewDetails(athleteId: number, event: MouseEvent<HTMLButtonElement>): void {
     // allows focus to be returned to the view details button upon closing the player panel
