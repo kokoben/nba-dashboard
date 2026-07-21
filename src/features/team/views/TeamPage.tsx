@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, type MouseEvent } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
 import { getTeamRoster, type TeamRosterResp, type Athlete } from '@/features/team/api';
 import NotFound from '@/views/NotFound';
@@ -13,7 +13,6 @@ function TeamPage() {
   const [rosterIsLoading, setRosterIsLoading] = useState<boolean>(true);
   const [rosterHasError, setRosterHasError] = useState<boolean>(false);
   const [panelPlayerId, setPanelPlayerId] = useState<number | null>(null);
-  const viewDetailsBtnRef = useRef<HTMLButtonElement | null>(null);
 
   useEffect(() => {
     if (!teamId) {
@@ -57,26 +56,7 @@ function TeamPage() {
     }
   }, [teamId]);
 
-  useEffect(() => {
-    // return focus to the view details button of the player card that was initially
-    // clicked on to open the player panel.
-
-    // only need to return focus to the view details button if the user is closing the panel
-    if (panelPlayerId !== null) {
-      return;
-    }
-
-    if (viewDetailsBtnRef.current) {
-      viewDetailsBtnRef.current.focus();
-      viewDetailsBtnRef.current = null;
-    }
-
-  }, [panelPlayerId]);
-
-  function viewDetails(athleteId: number, event: MouseEvent<HTMLButtonElement>): void {
-    // allows focus to be returned to the view details button upon closing the player panel
-    viewDetailsBtnRef.current = event.currentTarget;
-
+  function viewDetails(athleteId: number): void {
     setPanelPlayerId(athleteId);
   }
 
@@ -103,7 +83,7 @@ function TeamPage() {
                   key={athlete.id}
                   athlete={athlete}
                   playerPanelIsExpanded={panelPlayerId === Number(athlete.id)}
-                  viewDetails={(event) => viewDetails(Number(athlete.id), event)}
+                  viewDetails={() => viewDetails(Number(athlete.id))}
                 />
               )
             })}
