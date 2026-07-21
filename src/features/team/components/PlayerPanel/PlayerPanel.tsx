@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, type KeyboardEvent } from 'react';
 import styles from '@/features/team/components/PlayerPanel/PlayerPanel.module.scss';
 
 type PlayerPanelProps = {
@@ -25,6 +25,12 @@ function PlayerPanel({isOpen, closePanel}: PlayerPanelProps) {
     isOpen ? styles['player-panel-wrapper-is-open']: '',
   ].join(' ')
 
+  function handlePanelKeyDown(event: KeyboardEvent<HTMLDivElement>): void {
+    if (event.key === 'Escape') {
+      closePanel();
+    }
+  }
+
   return (
     <>
       <div
@@ -39,6 +45,7 @@ function PlayerPanel({isOpen, closePanel}: PlayerPanelProps) {
         aria-labelledby='player-panel-title'
         aria-modal='true'
         inert={!isOpen}
+        onKeyDown={handlePanelKeyDown}
       >
         <h2 id='player-panel-title'>Additional Player Details</h2>
         <button
