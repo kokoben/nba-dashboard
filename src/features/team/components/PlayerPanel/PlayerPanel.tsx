@@ -30,6 +30,7 @@ function PlayerPanel({ isOpen, closePanel }: PlayerPanelProps) {
       id='player-panel'
       className={styles['player-panel-wrapper']}
       aria-labelledby='player-panel-title'
+      aria-modal='true' // for firefox compatiblity
       closedby='any'
       onClose={closePanel}
     >
