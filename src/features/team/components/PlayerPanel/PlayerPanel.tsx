@@ -35,11 +35,12 @@ function PlayerPanel({isOpen, closePanel}: PlayerPanelProps) {
       <div
         id='player-panel'
         className={panelClassNames}
+        role="dialog"
+        aria-labelledby='player-panel-title'
+        aria-modal='true'
         inert={!isOpen}
       >
-        <div>
-          placeholder
-        </div>
+        <h2 id='player-panel-title'>Additional Player Details</h2>
         <button
           className={styles['close-btn']}
           type='button'
