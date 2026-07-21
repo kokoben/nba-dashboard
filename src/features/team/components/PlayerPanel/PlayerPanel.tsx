@@ -1,12 +1,13 @@
 import { useEffect, useRef, type KeyboardEvent } from 'react';
 import styles from '@/features/team/components/PlayerPanel/PlayerPanel.module.scss';
+import CustomButton from '@/components/CustomButton/CustomButton';
 
 type PlayerPanelProps = {
   isOpen: boolean,
   closePanel: () => void,
 }
 
-function PlayerPanel({isOpen, closePanel}: PlayerPanelProps) {
+function PlayerPanel({ isOpen, closePanel }: PlayerPanelProps) {
   const overlayClassNames: string = [
     styles['overlay'],
     isOpen ? styles['overlay-is-open']: '',
@@ -48,14 +49,13 @@ function PlayerPanel({isOpen, closePanel}: PlayerPanelProps) {
         onKeyDown={handlePanelKeyDown}
       >
         <h2 id='player-panel-title'>Additional Player Details</h2>
-        <button
-          className={styles['close-btn']}
-          type='button'
+        <CustomButton
           ref={closeBtnRef}
+          className={styles['close-btn']}
           onClick={closePanel}
         >
           Close
-        </button>
+        </CustomButton>
       </div>
     </>
   )

@@ -34,28 +34,7 @@
   }
   .close-btn {
     position: absolute;
-    top: 0;
-    left: 0;
-    margin: 8px 0 0 8px;
-    height: 34px;
-    box-sizing: border-box;
-    appearance: none;
-    -webkit-appearance: none;
-    outline: none;
-    border: 1px solid darkorange;
-    border-radius: 4px;
-    background: none;
-    cursor: pointer;
-    font-size: 16px;
-    &:hover {
-      background: gray;
-    }
-    &:active {
-      background: darkgray;
-    }
-    &:focus-visible {
-      outline: 1px solid blue;
-      outline-offset: 3px;
-    }
+    top: 8px;
+    left: 8px;
   }
 }

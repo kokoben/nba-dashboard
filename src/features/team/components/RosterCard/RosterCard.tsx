@@ -1,6 +1,7 @@
 import { type MouseEventHandler } from 'react';
 import { type Athlete } from '@/features/team/api';
 import styles from '@/features/team/components/RosterCard/RosterCard.module.scss';
+import CustomButton from '@/components/CustomButton/CustomButton';
 
 type RosterCardProps = {
   athlete: Athlete,
@@ -8,7 +9,7 @@ type RosterCardProps = {
   viewDetails: MouseEventHandler<HTMLButtonElement>,
 }
 
-function RosterCard({athlete, playerPanelIsExpanded, viewDetails}: RosterCardProps) {
+function RosterCard({ athlete, playerPanelIsExpanded, viewDetails }: RosterCardProps) {
   const formattedDate: string = new Date(athlete.dateOfBirth).toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',
@@ -24,14 +25,14 @@ function RosterCard({athlete, playerPanelIsExpanded, viewDetails}: RosterCardPro
             src={athlete.headshot.href}
             alt={athlete.headshot.alt}
           />) : <div>Headshot Placeholder</div>}
-          <button
-            type='button'
+          <CustomButton
             aria-label={`View details for ${athlete.fullName}`}
             aria-controls='player-panel'
             aria-expanded={playerPanelIsExpanded}
-            className={styles['view-details-btn']}
-            onClick={viewDetails}>View Details</button
+            onClick={viewDetails}
           >
+            View Details
+          </CustomButton>
         </div>
         <div className={styles['bio']}>
           <div>

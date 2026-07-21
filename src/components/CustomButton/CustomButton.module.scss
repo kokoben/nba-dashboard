@@ -1,0 +1,23 @@
+  .button-wrapper {
+    height: 34px;
+    box-sizing: border-box;
+    appearance: none;
+    -webkit-appearance: none;
+    outline: none;
+    border: 1px solid darkgoldenrod;
+    border-radius: 4px;
+    background: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: darkgoldenrod;
+    &:hover {
+      background: gray;
+    }
+    &:active {
+      background: darkgray;
+    }
+    &:focus-visible {
+      outline: 1px solid blue;
+      outline-offset: 3px;
+    }
+  }
