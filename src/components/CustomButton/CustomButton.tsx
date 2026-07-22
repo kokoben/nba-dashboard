@@ -4,6 +4,7 @@ import styles from '@/components/CustomButton/CustomButton.module.scss';
 type CustomButtonProps = ComponentPropsWithRef<'button'>;
 
 function CustomButton({ type = 'button', className, ...props }: CustomButtonProps) {
+  // derived values
   const classNames: string = [
     styles['button-wrapper'],
     className,

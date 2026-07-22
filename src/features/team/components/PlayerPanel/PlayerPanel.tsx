@@ -8,8 +8,10 @@ type PlayerPanelProps = {
 }
 
 function PlayerPanel({ isOpen, closePanel }: PlayerPanelProps) {
+  // state
   const dialogRef = useRef<HTMLDialogElement | null>(null);
 
+  // effects
   useEffect(() => {
     const dialog = dialogRef.current;
 

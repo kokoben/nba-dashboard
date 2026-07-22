@@ -18,11 +18,13 @@ function getIdFromDisplayName(displayName: string, apiTeams: Team[]): string {
 }
 
 function Dashboard() {
+  // state
   const [teams, setTeams] = useState<Team[] | null>(null);
   const [teamsIsLoading, setTeamsIsLoading] = useState<boolean>(true);
   const [teamsHasError, setTeamsHasError] = useState<boolean>(false);
   const [searchTeamsInput, setSearchTeamsInput] = useState<string>('');
 
+  // derived values
   const filteredTeams = TEAMS.filter(team => {
     return team.name.toLocaleLowerCase().trim()
       .includes(searchTeamsInput.toLocaleLowerCase().trim());
@@ -33,6 +35,7 @@ function Dashboard() {
     ? `${filteredTeams.length} ${teamNoun} found` : '';
 
 
+  // effects
   useEffect(() => {
     const controller = new AbortController();
 
@@ -63,6 +66,7 @@ function Dashboard() {
     };
   }, []);
 
+  // event handlers
   function handleChangeInput(event: React.ChangeEvent<HTMLInputElement>) {
     setSearchTeamsInput(event.target.value);
   }

@@ -10,12 +10,14 @@ import styles from '@/features/team/views/TeamPage.module.scss';
 function TeamPage() {
   const { teamId } = useParams();
 
+  // state
   const [roster, setRoster] = useState<TeamRosterResp | null>(null);
   const [rosterIsLoading, setRosterIsLoading] = useState<boolean>(true);
   const [rosterHasError, setRosterHasError] = useState<boolean>(false);
   const [panelPlayerId, setPanelPlayerId] = useState<number | null>(null);
   const [searchPlayersInput, setSearchPlayersInput] = useState<string>('');
 
+  // derived values
   const filteredAthletes: Athlete[] = roster?.athletes?.filter((athlete: Athlete) => {
     return athlete.fullName.toLocaleLowerCase().trim()
       .includes(searchPlayersInput.toLocaleLowerCase().trim());
@@ -25,6 +27,7 @@ function TeamPage() {
   const playersFoundText: string = searchPlayersInput.trim().length
     ? `${filteredAthletes.length} ${playerNoun} found` : '';
 
+  // effects
   useEffect(() => {
     if (!teamId) {
       setRoster(null);
@@ -67,6 +70,7 @@ function TeamPage() {
     }
   }, [teamId]);
 
+  // event handlers
   function handleChangeInput(event: React.ChangeEvent<HTMLInputElement>): void {
     setSearchPlayersInput(event.target.value);
   }
@@ -78,7 +82,6 @@ function TeamPage() {
   function closePanel(): void {
     setPanelPlayerId(null);
   }
-
 
   return (
     <>
