@@ -2,8 +2,9 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
 import { getTeamRoster, type TeamRosterResp, type Athlete } from '@/features/team/api';
 import NotFound from '@/views/NotFound';
-import RosterCard from '@/features/team/components/RosterCard/RosterCard';
+import PlayerCard from '@/features/team/components/PlayerCard/PlayerCard';
 import PlayerPanel from '@/features/team/components/PlayerPanel/PlayerPanel';
+import CustomInput from '@/components/CustomInput/CustomInput';
 import styles from '@/features/team/views/TeamPage.module.scss';
 
 function TeamPage() {
@@ -13,6 +14,16 @@ function TeamPage() {
   const [rosterIsLoading, setRosterIsLoading] = useState<boolean>(true);
   const [rosterHasError, setRosterHasError] = useState<boolean>(false);
   const [panelPlayerId, setPanelPlayerId] = useState<number | null>(null);
+  const [searchPlayersInput, setSearchPlayersInput] = useState<string>('');
+
+  const filteredAthletes: Athlete[] = roster?.athletes?.filter((athlete: Athlete) => {
+    return athlete.fullName.toLocaleLowerCase().trim()
+      .includes(searchPlayersInput.toLocaleLowerCase().trim());
+  }) ?? [];
+
+  const playerNoun: string = filteredAthletes.length === 1 ? 'player' : 'players';
+  const playersFoundText: string = searchPlayersInput.trim().length
+    ? `${filteredAthletes.length} ${playerNoun} found` : '';
 
   useEffect(() => {
     if (!teamId) {
@@ -56,6 +67,10 @@ function TeamPage() {
     }
   }, [teamId]);
 
+  function handleChangeInput(event: React.ChangeEvent<HTMLInputElement>): void {
+    setSearchPlayersInput(event.target.value);
+  }
+
   function viewDetails(athleteId: number): void {
     setPanelPlayerId(athleteId);
   }
@@ -76,10 +91,27 @@ function TeamPage() {
       ) : (
         <>
           <h2>{roster.team === null ? 'Unknown Team' : roster.team.displayName}</h2>
+          <div className={styles['search-row']}>
+            <p
+              className={styles['players-found']}
+              role='status'
+            >
+              {playersFoundText}
+            </p>
+            <CustomInput
+              aria-label='Search players'
+              type='search'
+              placeholder='Search players'
+              onChange={handleChangeInput}
+              value={searchPlayersInput}
+            />
+          </div>
           <div className={styles['roster-grid']}>
-            {roster.athletes.map((athlete: Athlete) => {
+            {filteredAthletes.length === 0
+              ? 'No players found'
+              : filteredAthletes.map((athlete: Athlete) => {
               return (
-                <RosterCard
+                <PlayerCard
                   key={athlete.id}
                   athlete={athlete}
                   playerPanelIsExpanded={panelPlayerId === Number(athlete.id)}

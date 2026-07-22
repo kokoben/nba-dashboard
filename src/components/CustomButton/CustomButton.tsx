@@ -3,21 +3,18 @@ import styles from '@/components/CustomButton/CustomButton.module.scss';
 
 type CustomButtonProps = ComponentPropsWithRef<'button'>;
 
-function CustomButton ({ ref, children, type = 'button', className, ...props }: CustomButtonProps) {
+function CustomButton({ type = 'button', className, ...props }: CustomButtonProps) {
   const classNames: string = [
     styles['button-wrapper'],
     className,
-  ].join(' ');
+  ].filter(Boolean).join(' ');
 
   return (
     <button
-      ref={ref}
       type={type}
       {...props}
       className={classNames}
-    >
-      {children}
-    </button>
+    />
   )
 }
 
