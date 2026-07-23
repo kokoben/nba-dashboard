@@ -9,7 +9,12 @@ type PlayerPanelProps = {
   closePanel: () => void,
 }
 
-// functions
+const salaryFormatter = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD',
+  maximumFractionDigits: 0,
+});
+
 function getFormattedContractDesc(contract: Contract): string {
   const formattedStartDate: string = new Date(contract.season.startDate).toLocaleDateString('en-US', {
     year: 'numeric',
@@ -21,12 +26,6 @@ function getFormattedContractDesc(contract: Contract): string {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
-  });
-
-  const salaryFormatter = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-    maximumFractionDigits: 0,
   });
 
   return `${contract.season.year}: ${salaryFormatter.format(contract.salary)}, ${formattedStartDate} - ${formattedEndDate}`;
@@ -51,6 +50,10 @@ function PlayerPanel({ isOpen, athleteData, closePanel }: PlayerPanelProps) {
     }
   }, [isOpen]);
 
+function requestClose(): void {
+  dialogRef.current?.close();
+}
+
   return (
     <dialog
       ref={dialogRef}
@@ -61,11 +64,13 @@ function PlayerPanel({ isOpen, athleteData, closePanel }: PlayerPanelProps) {
       closedby='any'
       onClose={closePanel}
     >
-      <h2 id='player-panel-title'>Additional Player Details</h2>
+      <h2 id='player-panel-title'>
+        {athleteData.fullName}
+      </h2>
       <CustomButton
         autoFocus
         className={styles['close-btn']}
-        onClick={closePanel}
+        onClick={requestClose}
       >
         Close
       </CustomButton>
@@ -84,9 +89,12 @@ function PlayerPanel({ isOpen, athleteData, closePanel }: PlayerPanelProps) {
         </div>
         <div className={styles['profile-row']}>
           <dt className={styles['row-label']}>Contracts:</dt>
-          {athleteData.contracts.map((contract: Contract, idx: number) =>
-            <dd key={idx} className={styles['contracts']}>{getFormattedContractDesc(contract)}</dd>
-          )}
+          {athleteData.contracts.length > 0
+            ? athleteData.contracts.map((contract: Contract, idx: number) =>
+              <dd key={idx} className={styles['contracts']}>
+                {getFormattedContractDesc(contract)}
+              </dd>
+          ) : <dd>None listed</dd>}
         </div>
       </dl>
     </dialog>
