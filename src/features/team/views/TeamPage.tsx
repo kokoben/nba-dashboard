@@ -23,6 +23,9 @@ function TeamPage() {
       .includes(searchPlayersInput.toLocaleLowerCase().trim());
   }) ?? [];
 
+  const selectedAthlete: Athlete | undefined = filteredAthletes
+    .find((athlete: Athlete) => Number(athlete.id) === panelPlayerId);
+
   const playerNoun: string = filteredAthletes.length === 1 ? 'player' : 'players';
   const playersFoundText: string = searchPlayersInput.trim().length
     ? `${filteredAthletes.length} ${playerNoun} found` : '';
@@ -125,7 +128,11 @@ function TeamPage() {
           </div>
         </>
       )}
-      <PlayerPanel isOpen={panelPlayerId !== null} closePanel={closePanel} />
+      {selectedAthlete && <PlayerPanel
+        isOpen={panelPlayerId !== null}
+        athleteData={selectedAthlete}
+        closePanel={closePanel}
+        />}
     </>
   )
 }

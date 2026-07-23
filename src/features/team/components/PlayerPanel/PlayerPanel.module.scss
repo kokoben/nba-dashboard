@@ -6,7 +6,7 @@
   max-width: none;
   max-height: none;
   box-sizing: border-box;
-  background: white;
+  background: rgb(221, 190, 146);
   width: 600px;
   height: 100dvh;
   padding: 8px;
@@ -31,6 +31,32 @@
     position: absolute;
     top: 8px;
     left: 8px;
+  }
+  .player-profile {
+    display: grid;
+    padding: 16px;
+    row-gap: 8px;
+    .profile-row {
+      display: contents;
+      dd {
+        text-align: left;
+        margin-inline-start: 0;
+      }
+      .row-label {
+        grid-column-start: 1;
+        font-weight: 600;
+      }
+      .row-value {
+        grid-column-start: 2;
+        font-weight: 400;
+      }
+      .contracts {
+        grid-column-start: 2;
+        font-weight: 400;
+        font-size: 13px;
+        color: green;
+      }
+    }
   }
 }
 

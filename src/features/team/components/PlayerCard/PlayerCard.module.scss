@@ -1,0 +1,65 @@
+.player-card-wrapper {
+  padding: 8px;
+  border: 1px solid black;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background: #ccc6ac;
+  .headshot-and-bio {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    .headshot-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      .headshot {
+        width: 180px;
+        height: auto;
+      }
+      .view-details-btn {
+        height: 34px;
+        box-sizing: border-box;
+        appearance: none;
+        -webkit-appearance: none;
+        outline: none;
+        border: 1px solid darkorange;
+        border-radius: 4px;
+        background: none;
+        cursor: pointer;
+        font-size: 16px;
+        &:hover {
+          background: gray;
+        }
+        &:active {
+          background: darkgray;
+        }
+        &:focus-visible {
+          outline: 1px solid blue;
+          outline-offset: 3px;
+        }
+      }
+    }
+    .bio {
+      text-align: left;
+      font-size: 16px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .player-card-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .headshot-and-bio {
+      flex-direction: column;
+      align-items: center;
+
+      .bio {
+        width: 100%;
+        overflow-wrap: anywhere;
+      }
+    }
+  }
+}

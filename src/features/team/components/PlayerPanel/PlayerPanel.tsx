@@ -1,13 +1,38 @@
 import { useEffect, useRef } from 'react';
+import { type Athlete, type Contract } from '@/features/team/api';
 import styles from '@/features/team/components/PlayerPanel/PlayerPanel.module.scss';
 import CustomButton from '@/components/CustomButton/CustomButton';
 
 type PlayerPanelProps = {
   isOpen: boolean,
+  athleteData: Athlete,
   closePanel: () => void,
 }
 
-function PlayerPanel({ isOpen, closePanel }: PlayerPanelProps) {
+// functions
+function getFormattedContractDesc(contract: Contract): string {
+  const formattedStartDate: string = new Date(contract.season.startDate).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+
+  const formattedEndDate: string = new Date(contract.season.endDate).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+
+  const salaryFormatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    maximumFractionDigits: 0,
+  });
+
+  return `${contract.season.year}: ${salaryFormatter.format(contract.salary)}, ${formattedStartDate} - ${formattedEndDate}`;
+}
+
+function PlayerPanel({ isOpen, athleteData, closePanel }: PlayerPanelProps) {
   // state
   const dialogRef = useRef<HTMLDialogElement | null>(null);
 
@@ -44,6 +69,26 @@ function PlayerPanel({ isOpen, closePanel }: PlayerPanelProps) {
       >
         Close
       </CustomButton>
+      <dl className={styles['player-profile']}>
+        <div className={styles['profile-row']}>
+          <dt className={styles['row-label']}>Status:</dt>
+          <dd className={styles['row-value']}>{athleteData.status.name}</dd>
+        </div>
+        <div className={styles['profile-row']}>
+          <dt className={styles['row-label']}>Debut Year:</dt>
+          <dd className={styles['row-value']}>{athleteData.debutYear ?? 'N/A'}</dd>
+        </div>
+        <div className={styles['profile-row']}>
+          <dt className={styles['row-label']}>College:</dt>
+          <dd className={styles['row-value']}>{athleteData.college?.name ?? 'N/A'}</dd>
+        </div>
+        <div className={styles['profile-row']}>
+          <dt className={styles['row-label']}>Contracts:</dt>
+          {athleteData.contracts.map((contract: Contract, idx: number) =>
+            <dd key={idx} className={styles['contracts']}>{getFormattedContractDesc(contract)}</dd>
+          )}
+        </div>
+      </dl>
     </dialog>
   )
 }

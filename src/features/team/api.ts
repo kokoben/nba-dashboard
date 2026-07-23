@@ -17,9 +17,29 @@ export type Athlete = {
     displayHeight: string,
     displayWeight: string,
     jersey?: number,
+    debutYear: number,
+    college?: {
+      name: string,
+    },
     position: {
       id: string,
       abbreviation: string,
+    },
+    experience: {
+      years: number,
+    },
+    status: {
+      name: string,
+    },
+    contracts: Contract[],
+}
+
+export type Contract = {
+    salary: number,
+    season: {
+      year: number,
+      startDate: string,
+      endDate: string,
     },
 }
 
