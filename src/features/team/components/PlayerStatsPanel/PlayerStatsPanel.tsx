@@ -59,7 +59,7 @@ function PlayerStatsPanel({isOpen, athleteData, closePanel}: PlayerStatsPanelPro
     const stats: SeasonStatsResp | undefined | null = seasonType === 'regular'
       ? regStats : postStats;
 
-    return stats?.teams?.[slug].displayName ?? 'N/A';
+    return stats?.teams?.[slug]?.displayName ?? 'N/A';
   }
 
   const regAverages: StatsCategory | null = regStats?.categories
