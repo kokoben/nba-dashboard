@@ -90,7 +90,7 @@ function PlayerStatsPanel({isOpen, athleteData, closePanel}: PlayerStatsPanelPro
                 .filter((stat: Statistic) => !stat.teamSlug.includes('Total'))
                 .map((stat: Statistic) => {
                 return (
-                  <tr key={stat.season.displayName}>
+                  <tr key={`${stat.season.displayName}-${stat.teamSlug}`}>
                     <td>{stat.season.displayName}</td>
                     <td>{kebabToTitleCase(stat.teamSlug)}</td>
                     {stat.stats.map((stat: string, statIdx: number) => {
