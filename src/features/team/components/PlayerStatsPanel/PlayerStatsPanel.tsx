@@ -127,7 +127,7 @@ function PlayerStatsPanel({isOpen, athleteData, closePanel}: PlayerStatsPanelPro
               })}
             </tbody>
           </table>
-        </> : 'No regular season stats found'}
+        </> : <div>No regular season stats found</div>}
         {postStatsStatus === 'pending'
           ? 'Loading...' :
           postStatsStatus === 'error'
@@ -162,7 +162,7 @@ function PlayerStatsPanel({isOpen, athleteData, closePanel}: PlayerStatsPanelPro
                 })}
               </tbody>
             </table>
-          </> : 'No postseason stats found'}
+          </> : <div>No postseason stats found</div>}
     </dialog>
   )
 }
