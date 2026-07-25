@@ -67,28 +67,31 @@ function PlayerStatsPanel({isOpen, athleteData, closePanel}: PlayerStatsPanelPro
         statsStatus === 'error'
         ? 'An error occurred' :
         stats?.categories ?
-        <table className={styles['stats-table']}>
-          <thead>
-            <tr>
-              <th>Season</th>
-              {stats.categories[0].labels.map((label: string) => {
-                return (<th key={label}>{label}</th>)
+        <>
+          <h3 className={styles['table-header']}>Regular Season:</h3>
+          <table className={styles['stats-table']}>
+            <thead>
+              <tr>
+                <th>Season</th>
+                {stats.categories[0].labels.map((label: string) => {
+                  return (<th key={label}>{label}</th>)
+                })}
+              </tr>
+            </thead>
+            <tbody>
+              {stats.categories[0].statistics.map((stat: Statistic) => {
+                return (
+                  <tr key={stat.season.displayName}>
+                    <td>{stat.season.displayName}</td>
+                    {stat.stats.map((stat: string, statIdx: number) => {
+                      return (<td key={`${statIdx}-${stat}`}>{stat}</td>)
+                    })}
+                  </tr>
+                )
               })}
-            </tr>
-          </thead>
-          <tbody>
-            {stats.categories[0].statistics.map((stat: Statistic) => {
-              return (
-                <tr key={stat.season.displayName}>
-                  <td>{stat.season.displayName}</td>
-                  {stat.stats.map((stat: string, statIdx: number) => {
-                    return (<td key={`${statIdx}-${stat}`}>{stat}</td>)
-                  })}
-                </tr>
-              )
-            })}
-          </tbody>
-        </table> : 'No stats found.'}
+            </tbody>
+          </table>
+        </> : 'No regular season stats found'}
     </dialog>
   )
 }
