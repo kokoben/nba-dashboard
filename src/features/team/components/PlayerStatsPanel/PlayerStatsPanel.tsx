@@ -1,7 +1,12 @@
 import { useEffect, useRef } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import styles from '@/features/team/components/PlayerStatsPanel/PlayerStatsPanel.module.scss';
-import { getPlayerRegularSeasonStats, type Athlete, type Statistic } from '@/features/team/api';
+import { kebabToTitleCase } from '@/helpers';
+import {
+  getPlayerStats,
+  type Athlete,
+  type Statistic,
+} from '@/features/team/api';
 import CustomButton from '@/components/CustomButton/CustomButton';
 // import type { Athlete } from '../../api';
 
@@ -15,7 +20,7 @@ function PlayerStatsPanel({isOpen, athleteData, closePanel}: PlayerStatsPanelPro
   // queries
   const { status: statsStatus, data: stats } = useQuery({
     queryKey: ['player-stats', athleteData.id],
-    queryFn: ({ signal }) => getPlayerRegularSeasonStats(athleteData.id, signal),
+    queryFn: ({ signal }) => getPlayerStats(athleteData.id, 'regular', signal),
     enabled: isOpen,
   });
 
@@ -68,27 +73,43 @@ function PlayerStatsPanel({isOpen, athleteData, closePanel}: PlayerStatsPanelPro
         ? 'An error occurred' :
         stats?.categories ?
         <>
-          <h3 className={styles['table-header']}>Regular Season:</h3>
+          <h3 className={styles['table-header']}>Regular Season</h3>
           <table className={styles['stats-table']}>
             <thead>
               <tr>
                 <th>Season</th>
+                <th>Team</th>
                 {stats.categories[0].labels.map((label: string) => {
                   return (<th key={label}>{label}</th>)
                 })}
               </tr>
             </thead>
             <tbody>
-              {stats.categories[0].statistics.map((stat: Statistic) => {
+              {stats.categories[0].statistics
+                // filter out the rows that represent totals for combined seasons
+                .filter((stat: Statistic) => !stat.teamSlug.includes('Total'))
+                .map((stat: Statistic) => {
                 return (
                   <tr key={stat.season.displayName}>
                     <td>{stat.season.displayName}</td>
+                    <td>{kebabToTitleCase(stat.teamSlug)}</td>
                     {stat.stats.map((stat: string, statIdx: number) => {
                       return (<td key={`${statIdx}-${stat}`}>{stat}</td>)
                     })}
                   </tr>
                 )
               })}
+            </tbody>
+          </table>
+          <h3 className={styles['table-header']}>Playoffs</h3>
+          <table className={styles['stats-table']}>
+            <thead>
+              <tr>
+                <th>Season</th>
+              </tr>
+            </thead>
+            <tbody>
+
             </tbody>
           </table>
         </> : 'No regular season stats found'}

@@ -63,6 +63,7 @@ export type RegularSeasonStatsResp = {
 
 export type Statistic = {
   teamId: string,
+  teamSlug: string,
   season: {
     displayName: string,
   },
@@ -86,9 +87,20 @@ export async function getTeamRoster(teamId: string,
   return data;
 }
 
-export async function getPlayerRegularSeasonStats(playerId: string,
-  signal?: AbortSignal): Promise<RegularSeasonStatsResp | null> {
-  const resp = await fetch(`${ESPN_API_V3_URL}/${playerId}/stats?seasontype=2`, { signal });
+const SEASON_TYPES ={
+  regular: 2,
+  postseason: 3,
+};
+
+type SeasonType = 'regular' | 'postseason';
+
+export async function getPlayerStats(playerId: string,
+  seasonType: SeasonType, signal?: AbortSignal): Promise<RegularSeasonStatsResp | null> {
+  const espnSeasonType: number = SEASON_TYPES[seasonType];
+
+  const resp = await fetch(`${ESPN_API_V3_URL}/${playerId}/stats?seasontype=${espnSeasonType}`, {
+    signal,
+  });
 
   if (resp.status == 400 || resp.status === 404) {
     return null;
