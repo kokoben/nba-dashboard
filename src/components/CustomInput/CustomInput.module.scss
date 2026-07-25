@@ -1,0 +1,14 @@
+.input-wrapper {
+  -webkit-appearance: none;
+  appearance: none;
+  box-sizing: border-box;
+  border-radius: 4px;
+  padding: 4px;
+  font: inherit;
+  color: inherit;
+  &:focus {
+    box-shadow:
+      0 0 0 1px color-mix(in srgb, var(--bg) 65%, var(--text-h)),
+      0 0 10px 3px color-mix(in srgb, var(--bg) 75%, var(--text-h));
+  }
+}
