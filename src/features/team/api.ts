@@ -1,4 +1,5 @@
 const ESPN_API_BASE_URL = 'https://site.api.espn.com/apis/site/v2/sports/basketball/nba/teams';
+const ESPN_API_V3_URL = 'https://site.web.api.espn.com/apis/common/v3/sports/basketball/nba/athletes';
 
 export type Athlete = {
     id: string,
@@ -52,6 +53,19 @@ export type TeamRosterResp = {
   team: Team,
 }
 
+export type RegularSeasonStatsResp = {
+  categories: {
+    labels: string[],
+    statistics: {
+      teamId: string,
+      season: {
+        displayName: string,
+      },
+      stats: string[], // each stat maps to the stat label at the same position in the "labels" field
+    }[],
+  }[],
+}
+
 export async function getTeamRoster(teamId: string,
   signal?: AbortSignal): Promise<TeamRosterResp | null> {
   const resp = await fetch(`${ESPN_API_BASE_URL}/${teamId}/roster`, { signal });
@@ -65,6 +79,23 @@ export async function getTeamRoster(teamId: string,
   }
 
   const data: TeamRosterResp = await resp.json();
+
+  return data;
+}
+
+export async function getPlayerRegularSeasonStats(playerId: string,
+  signal?: AbortSignal): Promise<RegularSeasonStatsResp | null> {
+  const resp = await fetch(`${ESPN_API_V3_URL}/${playerId}/stats?seasontype=2`, { signal});
+
+  if (resp.status == 400 || resp.status === 404) {
+    return null;
+  }
+
+  if (!resp.ok) {
+    throw new Error(`Stats request failed: ${resp.status}`)
+  }
+
+  const data: RegularSeasonStatsResp = await resp.json();
 
   return data;
 }
