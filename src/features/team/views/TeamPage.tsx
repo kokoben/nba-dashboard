@@ -23,7 +23,7 @@ function TeamPage() {
       .includes(searchPlayersInput.toLocaleLowerCase().trim());
   }) ?? [];
 
-  const selectedAthlete: Athlete | undefined = filteredAthletes
+  const selectedAthlete: Athlete | undefined = roster?.athletes
     .find((athlete: Athlete) => Number(athlete.id) === panelPlayerId);
 
   const playerNoun: string = filteredAthletes.length === 1 ? 'player' : 'players';
