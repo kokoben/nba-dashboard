@@ -54,16 +54,19 @@ export type TeamRosterResp = {
 }
 
 export type RegularSeasonStatsResp = {
+  // only interested in the first category, which is averages
   categories: {
     labels: string[],
-    statistics: {
-      teamId: string,
-      season: {
-        displayName: string,
-      },
-      stats: string[], // each stat maps to the stat label at the same position in the "labels" field
-    }[],
+    statistics: Statistic[],
   }[],
+}
+
+export type Statistic = {
+  teamId: string,
+  season: {
+    displayName: string,
+  },
+  stats: string[], // each stat maps to the stat label at the same position in the "labels" field
 }
 
 export async function getTeamRoster(teamId: string,
@@ -85,7 +88,7 @@ export async function getTeamRoster(teamId: string,
 
 export async function getPlayerRegularSeasonStats(playerId: string,
   signal?: AbortSignal): Promise<RegularSeasonStatsResp | null> {
-  const resp = await fetch(`${ESPN_API_V3_URL}/${playerId}/stats?seasontype=2`, { signal});
+  const resp = await fetch(`${ESPN_API_V3_URL}/${playerId}/stats?seasontype=2`, { signal });
 
   if (resp.status == 400 || resp.status === 404) {
     return null;
