@@ -10,7 +10,8 @@ function App() {
       <Route element={<AppLayout />}>
         <Route index element={<Dashboard />} />
         <Route path='/teams/:teamId' element={<TeamPage />} />
-        <Route path='/teams/:teamId/players/:playerId' element={<TeamPage />} />
+        <Route path='/teams/:teamId/players/:playerId/details' element={<TeamPage />} />
+        <Route path='/teams/:teamId/players/:playerId/stats' element={<TeamPage />}/>
         <Route path='*' element={<NotFound />} />
       </Route>
     </Routes>

@@ -6,10 +6,18 @@ import CustomButton from '@/components/CustomButton/CustomButton';
 type PlayerCardProps = {
   athlete: Athlete,
   playerPanelIsExpanded: boolean,
+  playerStatsPanelIsExpanded: boolean,
   viewDetails: MouseEventHandler<HTMLButtonElement>,
+  viewStats: MouseEventHandler<HTMLButtonElement>
 }
 
-function PlayerCard({ athlete, playerPanelIsExpanded, viewDetails }: PlayerCardProps) {
+function PlayerCard({
+  athlete,
+  playerPanelIsExpanded,
+  playerStatsPanelIsExpanded,
+  viewDetails,
+  viewStats,
+}: PlayerCardProps) {
   // derived values
   const formattedDate: string = new Date(athlete.dateOfBirth).toLocaleDateString('en-US', {
     year: 'numeric',
@@ -33,6 +41,14 @@ function PlayerCard({ athlete, playerPanelIsExpanded, viewDetails }: PlayerCardP
             onClick={viewDetails}
           >
             View Details
+          </CustomButton>
+          <CustomButton
+            aria-label={`View stats for ${athlete.fullName}`}
+            aria-controls='player-stats-panel'
+            aria-expanded={playerStatsPanelIsExpanded}
+            onClick={viewStats}
+          >
+            View Stats
           </CustomButton>
         </div>
         <div className={styles['bio']}>

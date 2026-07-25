@@ -81,7 +81,7 @@ function TeamPage() {
   }
 
   function viewDetails(athleteId: number): void {
-    navigate(`/teams/${teamId}/players/${athleteId}`);
+    navigate(`/teams/${teamId}/players/${athleteId}/details`);
   }
 
   function closePanel(): void {
