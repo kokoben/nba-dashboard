@@ -1,15 +1,20 @@
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router';
+import { useParams, useNavigate, useMatch } from 'react-router';
 import { getTeamRoster, type TeamRosterResp, type Athlete } from '@/features/team/api';
 import NotFound from '@/views/NotFound';
 import PlayerCard from '@/features/team/components/PlayerCard/PlayerCard';
 import PlayerPanel from '@/features/team/components/PlayerPanel/PlayerPanel';
+import PlayerStatsPanel from '../components/PlayerStatsPanel/PlayerStatsPanel';
 import CustomInput from '@/components/CustomInput/CustomInput';
 import styles from '@/features/team/views/TeamPage.module.scss';
 
 function TeamPage() {
   const navigate = useNavigate();
   const { teamId, playerId } = useParams();
+
+  // url matches
+  const detailsRouteMatch = useMatch(`/teams/:teamId/players/:playerId/details`);
+  const statsRouteMatch = useMatch(`/teams/:teamId/players/:playerId/stats`);
 
   // state
   const [roster, setRoster] = useState<TeamRosterResp | null>(null);
@@ -23,12 +28,19 @@ function TeamPage() {
       .includes(searchPlayersInput.toLocaleLowerCase().trim());
   }) ?? [];
 
-  const panelPlayerId: number | null = playerId ? Number(playerId) : null;
+  const activePanel: 'details' | 'stats' | null = detailsRouteMatch
+    ? 'details'
+    : statsRouteMatch
+    ? 'stats'
+    : null;
+
+  const selectedAthleteId: number | null = playerId && activePanel ? Number(playerId) : null;
 
   const selectedAthlete: Athlete | undefined = roster?.athletes
-    .find((athlete: Athlete) => Number(athlete.id) === panelPlayerId);
+    .find((athlete: Athlete) => Number(athlete.id) === selectedAthleteId);
 
   const playerNoun: string = filteredAthletes.length === 1 ? 'player' : 'players';
+
   const playersFoundText: string = searchPlayersInput.trim().length
     ? `${filteredAthletes.length} ${playerNoun} found` : '';
 
@@ -84,12 +96,18 @@ function TeamPage() {
     navigate(`/teams/${teamId}/players/${athleteId}/details`);
   }
 
+  function viewStats(athleteId: number): void {
+    navigate(`/teams/${teamId}/players/${athleteId}/stats`)
+  }
+
   function closePanel(): void {
     // if the user closes the panel, then hitting back will work as expected and
     // bring them back to the page they were on before the team page.
-    // if navigate(-1) was not called, then closing the panel would add TeamPage
-    // to the history stack, forcing the user to have to hit the browser back button
-    // twice to actually go back to the page before the team page.
+
+    // if navigate(-1) was not called, then closing the panel would leave the current history entry
+    // at /player. then the user would have to hit back again to move the current history entry to
+    // /team, which is visually the same page. so the user would essentially have to hit back twice
+    // to navigate to the previous page.
     navigate(-1);
   }
 
@@ -127,19 +145,34 @@ function TeamPage() {
                 <PlayerCard
                   key={athlete.id}
                   athlete={athlete}
-                  playerPanelIsExpanded={panelPlayerId === Number(athlete.id)}
+                  playerPanelIsExpanded={selectedAthleteId === Number(athlete.id)
+                    && activePanel === 'details'
+                  }
+                  playerStatsPanelIsExpanded={selectedAthleteId === Number(athlete.id)
+                    && activePanel === 'stats'
+                  }
                   viewDetails={() => viewDetails(Number(athlete.id))}
+                  viewStats={() => viewStats(Number(athlete.id))}
                 />
               )
             })}
           </div>
         </>
       )}
-      {selectedAthlete && <PlayerPanel
-        isOpen={panelPlayerId !== null}
-        athleteData={selectedAthlete}
-        closePanel={closePanel}
-        />}
+      {activePanel === 'details' && selectedAthlete &&
+        <PlayerPanel
+          isOpen={selectedAthleteId !== null}
+          athleteData={selectedAthlete}
+          closePanel={closePanel}
+        />
+      }
+      {activePanel === 'stats' && selectedAthlete &&
+        <PlayerStatsPanel
+          isOpen={selectedAthleteId !== null}
+          athleteData={selectedAthlete}
+          closePanel={closePanel}
+        />
+      }
     </>
   )
 }

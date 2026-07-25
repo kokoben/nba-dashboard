@@ -50,9 +50,10 @@ function PlayerPanel({ isOpen, athleteData, closePanel }: PlayerPanelProps) {
     }
   }, [isOpen]);
 
-function requestClose(): void {
-  dialogRef.current?.close();
-}
+  // functions
+  function requestClose(): void {
+    dialogRef.current?.close();
+  }
 
   return (
     <dialog
@@ -65,7 +66,7 @@ function requestClose(): void {
       onClose={closePanel}
     >
       <h2 id='player-panel-title'>
-        {athleteData.fullName}
+        Player Details: {athleteData.fullName}
       </h2>
       <CustomButton
         autoFocus
