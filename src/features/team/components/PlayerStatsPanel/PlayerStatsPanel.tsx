@@ -18,10 +18,15 @@ type PlayerStatsPanelProps = {
 
 function PlayerStatsPanel({isOpen, athleteData, closePanel}: PlayerStatsPanelProps) {
   // queries
-  const { status: statsStatus, data: stats } = useQuery({
-    queryKey: ['player-stats', athleteData.id],
+  const { status: regStatsStatus, data: regStats } = useQuery({
+    queryKey: ['player-stats', athleteData.id, 'regular'],
     queryFn: ({ signal }) => getPlayerStats(athleteData.id, 'regular', signal),
     enabled: isOpen,
+  });
+
+  const { status: postStatsStatus, data: postStats } = useQuery({
+    queryKey: ['player-stats', athleteData.id, 'postseason'],
+    queryFn: ({ signal }) => getPlayerStats(athleteData.id, 'postseason', signal),
   });
 
   // state
@@ -67,25 +72,25 @@ function PlayerStatsPanel({isOpen, athleteData, closePanel}: PlayerStatsPanelPro
       >
         Close
       </CustomButton>
-      {statsStatus === 'pending'
+      {regStatsStatus === 'pending'
         ? 'Loading...' :
-        statsStatus === 'error'
+        regStatsStatus === 'error'
         ? 'An error occurred' :
-        stats?.categories ?
+        regStats?.categories ?
         <>
-          <h3 className={styles['table-header']}>Regular Season</h3>
+          <h3 className={styles['table-header']}>{regStats.categories[0].displayName}</h3>
           <table className={styles['stats-table']}>
             <thead>
               <tr>
                 <th>Season</th>
                 <th>Team</th>
-                {stats.categories[0].labels.map((label: string) => {
+                {regStats.categories[0].labels.map((label: string) => {
                   return (<th key={label}>{label}</th>)
                 })}
               </tr>
             </thead>
             <tbody>
-              {stats.categories[0].statistics
+              {regStats.categories[0].statistics
                 // filter out the rows that represent totals for combined seasons
                 .filter((stat: Statistic) => !stat.teamSlug.includes('Total'))
                 .map((stat: Statistic) => {
@@ -101,18 +106,42 @@ function PlayerStatsPanel({isOpen, athleteData, closePanel}: PlayerStatsPanelPro
               })}
             </tbody>
           </table>
-          <h3 className={styles['table-header']}>Playoffs</h3>
-          <table className={styles['stats-table']}>
-            <thead>
-              <tr>
-                <th>Season</th>
-              </tr>
-            </thead>
-            <tbody>
-
-            </tbody>
-          </table>
         </> : 'No regular season stats found'}
+        {postStatsStatus === 'pending'
+          ? 'Loading...' :
+          postStatsStatus === 'error'
+          ? 'An error occurred' :
+          postStats?.categories ?
+          <>
+            <h3 className={styles['table-header']}>{postStats.categories[0].displayName}</h3>
+            <table className={styles['stats-table']}>
+              <thead>
+                <tr>
+                  <th>Season</th>
+                  <th>Team</th>
+                  {postStats.categories[0].labels.map((label: string) => {
+                    return (<th key={label}>{label}</th>)
+                  })}
+                </tr>
+              </thead>
+              <tbody>
+                {postStats.categories[0].statistics
+                  // filter out the rows that represent totals for combined seasons
+                  .filter((stat: Statistic) => !stat.teamSlug.includes('Total'))
+                  .map((stat: Statistic) => {
+                  return (
+                    <tr key={`${stat.season.displayName}-${stat.teamSlug}`}>
+                      <td>{stat.season.displayName}</td>
+                      <td>{kebabToTitleCase(stat.teamSlug)}</td>
+                      {stat.stats.map((stat: string, statIdx: number) => {
+                        return (<td key={`${statIdx}-${stat}`}>{stat}</td>)
+                      })}
+                    </tr>
+                  )
+                })}
+              </tbody>
+            </table>
+          </> : 'No postseason stats found'}
     </dialog>
   )
 }

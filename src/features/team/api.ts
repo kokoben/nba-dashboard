@@ -56,6 +56,7 @@ export type TeamRosterResp = {
 export type RegularSeasonStatsResp = {
   // only interested in the first category, which is averages
   categories: {
+    displayName: string,
     labels: string[],
     statistics: Statistic[],
   }[],
