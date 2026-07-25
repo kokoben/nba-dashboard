@@ -81,6 +81,10 @@ function PlayerPanel({ isOpen, athleteData, closePanel }: PlayerPanelProps) {
           <dd className={styles['row-value']}>{athleteData.status.name}</dd>
         </div>
         <div className={styles['profile-row']}>
+          <dt className={styles['row-label']}>Position:</dt>
+          <dd className={styles['row-value']}>{athleteData.position.abbreviation}</dd>
+        </div>
+        <div className={styles['profile-row']}>
           <dt className={styles['row-label']}>Debut Year:</dt>
           <dd className={styles['row-value']}>{athleteData.debutYear ?? 'N/A'}</dd>
         </div>
