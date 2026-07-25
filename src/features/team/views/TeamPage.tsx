@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router';
+import { useParams, useNavigate } from 'react-router';
 import { getTeamRoster, type TeamRosterResp, type Athlete } from '@/features/team/api';
 import NotFound from '@/views/NotFound';
 import PlayerCard from '@/features/team/components/PlayerCard/PlayerCard';
@@ -8,13 +8,13 @@ import CustomInput from '@/components/CustomInput/CustomInput';
 import styles from '@/features/team/views/TeamPage.module.scss';
 
 function TeamPage() {
-  const { teamId } = useParams();
+  const navigate = useNavigate();
+  const { teamId, playerId } = useParams();
 
   // state
   const [roster, setRoster] = useState<TeamRosterResp | null>(null);
   const [rosterIsLoading, setRosterIsLoading] = useState<boolean>(true);
   const [rosterHasError, setRosterHasError] = useState<boolean>(false);
-  const [panelPlayerId, setPanelPlayerId] = useState<number | null>(null);
   const [searchPlayersInput, setSearchPlayersInput] = useState<string>('');
 
   // derived values
@@ -22,6 +22,8 @@ function TeamPage() {
     return athlete.fullName.toLocaleLowerCase().trim()
       .includes(searchPlayersInput.toLocaleLowerCase().trim());
   }) ?? [];
+
+  const panelPlayerId: number | null = playerId ? Number(playerId) : null;
 
   const selectedAthlete: Athlete | undefined = roster?.athletes
     .find((athlete: Athlete) => Number(athlete.id) === panelPlayerId);
@@ -79,11 +81,16 @@ function TeamPage() {
   }
 
   function viewDetails(athleteId: number): void {
-    setPanelPlayerId(athleteId);
+    navigate(`/teams/${teamId}/players/${athleteId}`);
   }
 
   function closePanel(): void {
-    setPanelPlayerId(null);
+    // if the user closes the panel, then hitting back will work as expected and
+    // bring them back to the page they were on before the team page.
+    // if navigate(-1) was not called, then closing the panel would add TeamPage
+    // to the history stack, forcing the user to have to hit the browser back button
+    // twice to actually go back to the page before the team page.
+    navigate(-1);
   }
 
   return (
