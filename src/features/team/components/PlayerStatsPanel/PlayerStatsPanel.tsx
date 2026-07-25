@@ -1,11 +1,13 @@
 import { useEffect, useRef } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import styles from '@/features/team/components/PlayerStatsPanel/PlayerStatsPanel.module.scss';
-import { kebabToTitleCase } from '@/helpers';
 import {
   getPlayerStats,
   type Athlete,
   type Statistic,
+  type SeasonType,
+  type StatsCategory,
+  type SeasonStatsResp,
 } from '@/features/team/api';
 import CustomButton from '@/components/CustomButton/CustomButton';
 // import type { Athlete } from '../../api';
@@ -27,6 +29,7 @@ function PlayerStatsPanel({isOpen, athleteData, closePanel}: PlayerStatsPanelPro
   const { status: postStatsStatus, data: postStats } = useQuery({
     queryKey: ['player-stats', athleteData.id, 'postseason'],
     queryFn: ({ signal }) => getPlayerStats(athleteData.id, 'postseason', signal),
+    enabled: isOpen,
   });
 
   // state
@@ -52,6 +55,24 @@ function PlayerStatsPanel({isOpen, athleteData, closePanel}: PlayerStatsPanelPro
     dialogRef.current?.close();
   }
 
+  function getTeamNameFromSlug(slug: string, seasonType: SeasonType): string {
+    const stats: SeasonStatsResp | undefined | null = seasonType === 'regular'
+      ? regStats : postStats;
+
+    return stats?.teams?.[slug].displayName ?? 'N/A';
+  }
+
+  const regAverages: StatsCategory | null = regStats?.categories
+    ?.find((category: StatsCategory) => {
+      return category.name === 'averages';
+    }) ?? null;
+
+  const postAverages: StatsCategory | null = postStats?.categories
+    ?.find((category: StatsCategory) => {
+      return category.name === 'averages';
+    }) ?? null;
+
+
   return (
     <dialog
       ref={dialogRef}
@@ -76,28 +97,28 @@ function PlayerStatsPanel({isOpen, athleteData, closePanel}: PlayerStatsPanelPro
         ? 'Loading...' :
         regStatsStatus === 'error'
         ? 'An error occurred' :
-        regStats?.categories ?
+        regAverages ?
         <>
-          <h3 className={styles['table-header']}>{regStats.categories[0].displayName}</h3>
+          <h3 className={styles['table-header']}>{regAverages.displayName}</h3>
           <table className={styles['stats-table']}>
             <thead>
               <tr>
                 <th>Season</th>
                 <th>Team</th>
-                {regStats.categories[0].labels.map((label: string) => {
+                {regAverages.labels.map((label: string) => {
                   return (<th key={label}>{label}</th>)
                 })}
               </tr>
             </thead>
             <tbody>
-              {regStats.categories[0].statistics
+              {regAverages.statistics
                 // filter out the rows that represent totals for combined seasons
                 .filter((stat: Statistic) => !stat.teamSlug.includes('Total'))
                 .map((stat: Statistic) => {
                 return (
                   <tr key={`${stat.season.displayName}-${stat.teamSlug}`}>
                     <td>{stat.season.displayName}</td>
-                    <td>{kebabToTitleCase(stat.teamSlug)}</td>
+                    <td>{getTeamNameFromSlug(stat.teamSlug, 'regular')}</td>
                     {stat.stats.map((stat: string, statIdx: number) => {
                       return (<td key={`${statIdx}-${stat}`}>{stat}</td>)
                     })}
@@ -111,28 +132,28 @@ function PlayerStatsPanel({isOpen, athleteData, closePanel}: PlayerStatsPanelPro
           ? 'Loading...' :
           postStatsStatus === 'error'
           ? 'An error occurred' :
-          postStats?.categories ?
+          postAverages ?
           <>
-            <h3 className={styles['table-header']}>{postStats.categories[0].displayName}</h3>
+            <h3 className={styles['table-header']}>{postAverages.displayName}</h3>
             <table className={styles['stats-table']}>
               <thead>
                 <tr>
                   <th>Season</th>
                   <th>Team</th>
-                  {postStats.categories[0].labels.map((label: string) => {
+                  {postAverages.labels.map((label: string) => {
                     return (<th key={label}>{label}</th>)
                   })}
                 </tr>
               </thead>
               <tbody>
-                {postStats.categories[0].statistics
+                {postAverages.statistics
                   // filter out the rows that represent totals for combined seasons
                   .filter((stat: Statistic) => !stat.teamSlug.includes('Total'))
                   .map((stat: Statistic) => {
                   return (
                     <tr key={`${stat.season.displayName}-${stat.teamSlug}`}>
                       <td>{stat.season.displayName}</td>
-                      <td>{kebabToTitleCase(stat.teamSlug)}</td>
+                      <td>{getTeamNameFromSlug(stat.teamSlug, 'postseason')}</td>
                       {stat.stats.map((stat: string, statIdx: number) => {
                         return (<td key={`${statIdx}-${stat}`}>{stat}</td>)
                       })}

@@ -53,17 +53,24 @@ export type TeamRosterResp = {
   team: Team,
 }
 
-export type RegularSeasonStatsResp = {
-  // only interested in the first category, which is averages
-  categories: {
+export type SeasonStatsResp = {
+  teams?: {[key: string]: StatsTeam },
+  categories?: StatsCategory[],
+}
+
+export type StatsTeam = {
+  slug: string,
+  displayName: string
+}
+
+export type StatsCategory = {
+    name: string,
     displayName: string,
     labels: string[],
     statistics: Statistic[],
-  }[],
 }
 
 export type Statistic = {
-  teamId: string,
   teamSlug: string,
   season: {
     displayName: string,
@@ -93,10 +100,10 @@ const SEASON_TYPES ={
   postseason: 3,
 };
 
-type SeasonType = 'regular' | 'postseason';
+export type SeasonType = 'regular' | 'postseason';
 
 export async function getPlayerStats(playerId: string,
-  seasonType: SeasonType, signal?: AbortSignal): Promise<RegularSeasonStatsResp | null> {
+  seasonType: SeasonType, signal?: AbortSignal): Promise<SeasonStatsResp | null> {
   const espnSeasonType: number = SEASON_TYPES[seasonType];
 
   const resp = await fetch(`${ESPN_API_V3_URL}/${playerId}/stats?seasontype=${espnSeasonType}`, {
@@ -111,7 +118,7 @@ export async function getPlayerStats(playerId: string,
     throw new Error(`Stats request failed: ${resp.status}`)
   }
 
-  const data: RegularSeasonStatsResp = await resp.json();
+  const data: SeasonStatsResp = await resp.json();
 
   return data;
 }
