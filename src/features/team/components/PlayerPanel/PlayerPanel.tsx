@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import { type Athlete, type Contract } from '@/features/team/api';
 import styles from '@/features/team/components/PlayerPanel/PlayerPanel.module.scss';
 import CustomButton from '@/components/CustomButton/CustomButton';
+import useDialog from '@/hooks/useDialog';
 
 type PlayerPanelProps = {
   isOpen: boolean,
@@ -32,28 +33,7 @@ function getFormattedContractDesc(contract: Contract): string {
 }
 
 function PlayerPanel({ isOpen, athleteData, closePanel }: PlayerPanelProps) {
-  // state
-  const dialogRef = useRef<HTMLDialogElement | null>(null);
-
-  // effects
-  useEffect(() => {
-    const dialog = dialogRef.current;
-
-    if (!dialog) {
-      return;
-    }
-
-    if (isOpen && !dialog.open) {
-      dialog.showModal();
-    } else if (!isOpen && dialog.open) {
-      dialog.close();
-    }
-  }, [isOpen]);
-
-  // functions
-  function requestClose(): void {
-    dialogRef.current?.close();
-  }
+  const { dialogRef, requestClose } = useDialog(isOpen);
 
   return (
     <dialog

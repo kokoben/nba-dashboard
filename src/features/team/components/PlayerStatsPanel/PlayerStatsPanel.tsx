@@ -10,7 +10,7 @@ import {
   type SeasonStatsResp,
 } from '@/features/team/api';
 import CustomButton from '@/components/CustomButton/CustomButton';
-// import type { Athlete } from '../../api';
+import useDialog from '@/hooks/useDialog';
 
 type PlayerStatsPanelProps = {
   isOpen: boolean,
@@ -19,6 +19,8 @@ type PlayerStatsPanelProps = {
 }
 
 function PlayerStatsPanel({isOpen, athleteData, closePanel}: PlayerStatsPanelProps) {
+  const { dialogRef, requestClose } = useDialog(isOpen);
+
   // queries
   const { status: regStatsStatus, data: regStats } = useQuery({
     queryKey: ['player-stats', athleteData.id, 'regular'],
@@ -31,29 +33,6 @@ function PlayerStatsPanel({isOpen, athleteData, closePanel}: PlayerStatsPanelPro
     queryFn: ({ signal }) => getPlayerStats(athleteData.id, 'postseason', signal),
     enabled: isOpen,
   });
-
-  // state
-  const dialogRef = useRef<HTMLDialogElement| null>(null);
-
-  // effects
-  useEffect(() => {
-    const dialog = dialogRef.current;
-
-    if (!dialog) {
-      return;
-    }
-
-    if (isOpen && !dialog.open) {
-      dialog.showModal();
-    } else if (!isOpen && dialog.open) {
-      dialog.close();
-    }
-  }, [isOpen]);
-
-  // functions
-  function requestClose(): void {
-    dialogRef.current?.close();
-  }
 
   function getTeamNameFromSlug(slug: string, seasonType: SeasonType): string {
     const stats: SeasonStatsResp | undefined | null = seasonType === 'regular'
