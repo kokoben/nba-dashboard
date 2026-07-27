@@ -1,6 +1,6 @@
 # NBA Dashboard
 
-## Note: ESPN’s API does not permit cross-origin browser requests. To load NBA data locally, enable a CORS browser extension for this site, then refresh the page. Disable the extension afterward, as bypassing CORS protections can carry security risks.
+### Note: ESPN’s API does not permit cross-origin browser requests. To load NBA data locally, enable a CORS browser extension for this site, then refresh the page. Disable the extension afterward, as bypassing CORS protections can carry security risks.
 
 [demo](https://nba-dashboard-2h1q.onrender.com/)
 
