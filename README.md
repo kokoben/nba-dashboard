@@ -2,7 +2,7 @@
 
 [demo](https://nba-dashboard-2h1q.onrender.com/)
 
-https://github.com/user-attachments/assets/244dccbc-bf0e-4a51-98a2-95dcd910b639
+https://github.com/user-attachments/assets/2186ef4d-ab06-4d3b-92dd-09cb16f73589
 
 Side project to catch up on the current state of React. A simple dashboard where NBA fans can view roster information for each NBA team.
 
