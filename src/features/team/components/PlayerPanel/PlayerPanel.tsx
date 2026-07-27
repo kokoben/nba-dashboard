@@ -1,4 +1,3 @@
-import { useEffect, useRef } from 'react';
 import { type Athlete, type Contract } from '@/features/team/api';
 import styles from '@/features/team/components/PlayerPanel/PlayerPanel.module.scss';
 import CustomButton from '@/components/CustomButton/CustomButton';

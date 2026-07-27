@@ -1,4 +1,3 @@
-import { useEffect, useRef } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import styles from '@/features/team/components/PlayerStatsPanel/PlayerStatsPanel.module.scss';
 import {
