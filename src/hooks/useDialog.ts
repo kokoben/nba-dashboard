@@ -28,6 +28,6 @@ function useDialog(isOpen: boolean) {
     dialogRef,
     requestClose,
   };
-};
+}
 
 export default useDialog;
