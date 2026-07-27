@@ -8,6 +8,8 @@ Side project to catch up on the current state of React. A simple dashboard where
 - Landing page displaying all 30 NBA teams
 - Player cards for each team displaying headshots and bio
 - Additional slide-out pannels displaying additional player details (player status, position, contracts, etc.) and season-by-season career statistics
+- Responsive grid and panel layouts
+- A11y compliant
 
 Created using ESPN's publically accessible APIs.
 
