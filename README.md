@@ -13,7 +13,7 @@ Side project to catch up on the current state of React. A simple dashboard where
 - Responsive grid and panel layouts
 - A11y compliant
 
-Created using ESPN's publically accessible APIs.
+Created using ESPN's publicly accessible APIs.
 
 ## Technologies and libraries used:
 - React 19
