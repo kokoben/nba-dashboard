@@ -21,3 +21,7 @@ Created using ESPN's publicly accessible APIs.
 - TanStack Query
 - Vitest with React Testing Library
 - Storybook 10
+
+## To run it locally
+1. Clone the repo
+2. CD into the folder and run `npm install` followed by `npm run dev`
