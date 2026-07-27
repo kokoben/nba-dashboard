@@ -7,18 +7,13 @@ const meta: Meta<typeof CustomButton> = {
   argTypes: {
     type: {
       control: {
-        type: 'text',
+        type: 'select',
       },
-    },
-    className: {
-      control: {
-        type: 'text',
-      },
+      options: ['button', 'submit', 'reset'],
     },
   },
   args: {
     type: 'button',
-    className: 'test-class',
     onClick: fn(),
   },
 };

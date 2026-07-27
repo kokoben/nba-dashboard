@@ -5,11 +5,6 @@ import CustomInput from '@/components/CustomInput/CustomInput';
 const meta: Meta<typeof CustomInput> = {
   component: CustomInput,
   argTypes: {
-    className: {
-      control: {
-        type: 'text',
-      },
-    },
     placeholder: {
       control: {
         type: 'text',
@@ -17,7 +12,6 @@ const meta: Meta<typeof CustomInput> = {
     }
   },
   args: {
-    className: 'test-class',
     placeholder: 'Test placeholder',
     onChange: fn(),
   }
