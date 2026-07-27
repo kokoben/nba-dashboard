@@ -11,7 +11,7 @@ Side project to catch up on the current state of React. A simple dashboard where
 - Player cards for each team displaying headshots and bio
 - Slide-out panels displaying additional player details (player status, position, contracts, etc.) and season-by-season career statistics
 - Responsive grid and panel layouts
-- A11y compliant
+- Built with a11y in mind
 
 Created using ESPN's publicly accessible APIs.
 
