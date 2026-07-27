@@ -24,4 +24,6 @@ Created using ESPN's publicly accessible APIs.
 
 ## To run it locally
 1. Clone the repo
-2. CD into the folder and run `npm install` followed by `npm run dev`
+2. Navigate to the project directory and run `npm install` followed by `npm run dev`
+
+**Note:** Requires Node.js 22.22 or later. Node.js 24 is recommended.
