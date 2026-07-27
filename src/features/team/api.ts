@@ -14,7 +14,7 @@ export type Athlete = {
       city: string,
       state: string,
       country: string,
-    },
+    } | Record<string, never>,
     displayHeight: string,
     displayWeight: string,
     jersey?: number,
