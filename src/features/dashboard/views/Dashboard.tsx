@@ -76,7 +76,10 @@ function Dashboard() {
       {teamsIsLoading ? (
         <div>Loading...</div>
       ) : teamsHasError ? (
-        <div>An error occurred</div>
+        <div>
+          Unable to contact ESPN. The request may be blocked by CORS.
+          Please enable a CORS extension and refresh the page.
+        </div>
       ) : !teams || !teams.length ? (
         <div>No teams found</div>
       ) : (
