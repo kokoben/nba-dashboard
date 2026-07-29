@@ -33,3 +33,13 @@ Vite forwards local `/api/espn` requests to the proxy on port 3000. See
 [proxy/README.md](proxy/README.md) for the proxy endpoints.
 
 **Note:** Requires Node.js 22.22 or later. Node.js 24 is recommended.
+
+## Deploy on Render
+
+Create a **Web Service** from the repository root with:
+
+- Build Command: `npm install && npm --prefix proxy install && npm run build`
+- Start Command: `npm start`
+
+The build command creates the React `dist` directory. The start command runs
+Express, which serves both the React files and `/api/espn`.

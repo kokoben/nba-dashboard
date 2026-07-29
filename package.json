@@ -9,6 +9,7 @@
     "build": "tsc -b && vite build",
     "lint": "oxlint",
     "preview": "vite preview",
+    "start": "npm --prefix proxy start",
     "test": "vitest run",
     "test-watch": "vitest",
     "storybook": "storybook dev -p 6006",

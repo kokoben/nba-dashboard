@@ -1,6 +1,8 @@
 import express from 'express';
+import path from 'node:path';
 
 const app = express();
+const reactBuildPath = path.join(import.meta.dirname, '../dist');
 
 const ALLOWED_ESPN_URLS = [
   'https://site.api.espn.com/apis/site/v2/sports/',
@@ -29,6 +31,14 @@ app.get('/api/espn', async (req, res) => {
   }
 });
 
-app.listen(3000, '127.0.0.1', () => {
-  console.log('ESPN proxy listening at http://localhost:3000');
+app.use(express.static(reactBuildPath));
+
+app.get('/{*path}', (_req, res) => {
+  res.sendFile(path.join(reactBuildPath, 'index.html'));
+});
+
+const port = process.env.PORT || 3000;
+
+app.listen(port, '0.0.0.0', () => {
+  console.log(`NBA Dashboard listening on port ${port}`);
 });
