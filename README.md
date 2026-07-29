@@ -26,6 +26,7 @@ Created using ESPN's publicly accessible APIs.
 - TanStack Query
 - Vitest with React Testing Library
 - Storybook 10
+- Express 5 proxy for accessing ESPN APIs without browser CORS errors
 
 ## To run it locally
 1. Clone the repo
