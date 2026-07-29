@@ -1,3 +1,4 @@
+const ESPN_PROXY_URL = '/api/espn?url=';
 const ESPN_API_BASE_URL = 'https://site.api.espn.com/apis/site/v2/sports/basketball/nba/teams';
 const ESPN_API_V3_URL = 'https://site.web.api.espn.com/apis/common/v3/sports/basketball/nba/athletes';
 
@@ -80,7 +81,11 @@ export type Statistic = {
 
 export async function getTeamRoster(teamId: string,
   signal?: AbortSignal): Promise<TeamRosterResp | null> {
-  const resp = await fetch(`${ESPN_API_BASE_URL}/${teamId}/roster`, { signal });
+  const espnUrl: string = `${ESPN_API_BASE_URL}/${teamId}/roster`;
+  const resp = await fetch(
+    `${ESPN_PROXY_URL}${encodeURIComponent(espnUrl)}`,
+    { signal },
+  );
 
   if (resp.status == 400 || resp.status === 404) {
     return null;
@@ -105,10 +110,13 @@ export type SeasonType = 'regular' | 'postseason';
 export async function getPlayerStats(playerId: string,
   seasonType: SeasonType, signal?: AbortSignal): Promise<SeasonStatsResp | null> {
   const espnSeasonType: number = SEASON_TYPES[seasonType];
+  const espnUrl =
+    `${ESPN_API_V3_URL}/${playerId}/stats?seasontype=${espnSeasonType}`;
 
-  const resp = await fetch(`${ESPN_API_V3_URL}/${playerId}/stats?seasontype=${espnSeasonType}`, {
-    signal,
-  });
+  const resp = await fetch(
+    `${ESPN_PROXY_URL}${encodeURIComponent(espnUrl)}`,
+    { signal },
+  );
 
   if (resp.status == 400 || resp.status === 404) {
     return null;

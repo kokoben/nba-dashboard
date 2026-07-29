@@ -1,8 +1,5 @@
 # NBA Dashboard
 
-### Note: ESPN’s API does not permit cross-origin browser requests. To load NBA data locally, enable a CORS browser extension for this site, then refresh the page. Disable the extension afterward, as bypassing CORS protections can carry security risks.
-### A lightweight proxy is planned to remove this requirement in a future update.
-
 [demo](https://nba-dashboard-2h1q.onrender.com/)
 
 https://github.com/user-attachments/assets/2186ef4d-ab06-4d3b-92dd-09cb16f73589
@@ -27,6 +24,12 @@ Created using ESPN's publicly accessible APIs.
 
 ## To run it locally
 1. Clone the repo
-2. Navigate to the project directory and run `npm install` followed by `npm run dev`
+2. In the project directory, run `npm install`
+3. In a second terminal, run `npm --prefix proxy install`
+4. Start the ESPN proxy with `npm run dev:proxy`
+5. Start the dashboard with `npm run dev`
+
+Vite forwards local `/api/espn` requests to the proxy on port 3000. See
+[proxy/README.md](proxy/README.md) for the proxy endpoints.
 
 **Note:** Requires Node.js 22.22 or later. Node.js 24 is recommended.

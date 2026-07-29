@@ -116,7 +116,7 @@ function TeamPage() {
       {rosterIsLoading ? (
         <div>Loading...</div>
       ) : rosterHasError ? (
-        <div>An error occurred</div>
+        <div>Unable to contact ESPN. Please try again shortly.</div>
       ) : !teamId || roster === null ? (
         <NotFound />
       ) : (
