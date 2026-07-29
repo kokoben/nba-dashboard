@@ -2,9 +2,10 @@
 
 [demo](https://nba-dashboard-rlh7.onrender.com/)
 
-> **Note:** The demo is hosted on Render's free tier and may occasionally take
-> a moment to become available or return a temporary error. If that happens,
-> wait a few seconds and refresh the page.
+> **Note:** The demo is hosted on Render's free tier, which puts the service to
+> sleep after a period of inactivity. The first visit afterward may take about
+> a minute to load. If the page is temporarily unavailable, give it a moment
+> and refresh.
 
 https://github.com/user-attachments/assets/2186ef4d-ab06-4d3b-92dd-09cb16f73589
 

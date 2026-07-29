@@ -4,9 +4,9 @@ This server proxies only the two ESPN API roots used by NBA Dashboard. It is
 not a general-purpose open proxy. When deployed, it also serves the built React
 app at [nba-dashboard-rlh7.onrender.com](https://nba-dashboard-rlh7.onrender.com/).
 
-The deployed app runs on Render's free tier and may occasionally take a moment
-to become available or return a temporary error. If that happens, wait a few
-seconds and refresh the page.
+The deployed app runs on Render's free tier, which puts the service to sleep
+after a period of inactivity. The first visit afterward may take about a minute
+to load. If the page is temporarily unavailable, give it a moment and refresh.
 
 ## Run locally
 
