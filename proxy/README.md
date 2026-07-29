@@ -21,5 +21,3 @@ the `url` query parameter:
 ```text
 /api/espn?url=https%3A%2F%2Fsite.api.espn.com%2Fapis%2Fsite%2Fv2%2Fsports%2F...
 ```
-
-Only the two ESPN API roots used by the dashboard are accepted.
